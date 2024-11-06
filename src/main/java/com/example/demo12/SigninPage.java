@@ -5,19 +5,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
-public class HelloController {
+public class SigninPage {
     @FXML
-    public Button signin;
+    private Button signin;
     @FXML
-    public Button signup;
+    private Button signup;
+    @FXML
+    private TextField username;
+    @FXML
+    private TextField password;
 
-    public void onsignin(MouseEvent mouseEvent) {
+    public void onsignin(MouseEvent mouseEvent) throws IOException {
+        String User_name=username.getText();
+        String Password=password.getText();
+        loadNewsArticle();
         closeCurrentStage(signin);
+
     }
 
     public void onsigningup(MouseEvent mouseEvent) throws IOException {
@@ -39,5 +49,8 @@ public class HelloController {
     }
     public void loadSignuppage() throws IOException {
         openNewStage("signuppage.fxml", "Signup Page", 500, 500); // fixed typo in FXML filename
+    }
+    public void loadNewsArticle() throws IOException {
+        openNewStage("NewsArticle.fxml","News Article Page",500,500);
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class Signuppage  {
+public class Signuppage extends SigninPage  {
     @FXML
     private TextField name;
     @FXML
@@ -20,8 +20,7 @@ public class Signuppage  {
     private Button rest;
     @FXML
     private Label errormessage;
-    HelloController c1 = new HelloController();
-    database database=new database();
+
 
     public void onrest(MouseEvent mouseEvent) {
         name.clear();
@@ -35,11 +34,12 @@ public class Signuppage  {
         String User_name = user.getText();
         String Password = pass.getText();
 
+        CRUD update=new CRUD();
 
         String query = "INSERT INTO USER (name, username, password) VALUES (?, ?, ?)";
-        database.getConnection(query, Name, User_name, Password);
+        update.insert(query, Name, User_name, Password);
 
 
-        c1.closeCurrentStage(enter);
+        closeCurrentStage(enter);
     }
 }
