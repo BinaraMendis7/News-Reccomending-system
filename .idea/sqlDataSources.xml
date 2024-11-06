@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="595d335b-c8c1-4731-8ef9-7b423ae2ef77" name="@localhost Mapping">
+      <data-sources db="75aa0bcc-4247-4fc8-b511-8658a6040c16" />
+      <scope>
+        <node kind="schema" qname="news_system" />
+      </scope>
+    </mapping>
+  </component>
+</project>
