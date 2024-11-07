@@ -33,11 +33,15 @@ public class Signuppage extends SigninPage  {
         String Name = name.getText();
         String User_name = user.getText();
         String Password = pass.getText();
+        User user1=new User(User_name,Name,Password);
+        user1.setName(Name);
+        user1.setUsername(User_name);
+        user1.setPassword(Password);
 
         CRUD update=new CRUD();
 
         String query = "INSERT INTO USER (name, username, password) VALUES (?, ?, ?)";
-        update.insert(query, Name, User_name, Password);
+        update.insert(query, user1.getName(), user1.getUsername(), user1.getPassword());
 
 
         closeCurrentStage(enter);

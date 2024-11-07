@@ -1,8 +1,10 @@
 package com.example.demo12;
 
+
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class CRUD extends database {
 
@@ -45,12 +47,29 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
-    public void read(){
-        try{
+    public boolean read(String username, String Password){
+        boolean userExists=false;
+        try {
             getConnection();
-        }
-        catch (Exception e){
+            String query="SELECT * FROM user WHERE username= ? AND password= ?";
+            PreparedStatement statement1=connection.prepareStatement(query);
+            statement1.setString(1,username);
+            statement1.setString(2,Password);
+
+            ResultSet resultSet=statement1.executeQuery();
+
+            if (resultSet.next()){
+                userExists=true;
+            }
+
 
         }
+        catch (Exception e){
+            System.out.println(e);
+
+        }
+        return userExists;
+
     }
+
 }
