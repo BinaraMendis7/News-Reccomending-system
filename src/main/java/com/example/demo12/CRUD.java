@@ -26,21 +26,21 @@ public class CRUD extends database {
             }
 
             if (!userExists) {
-                // Prepare the statement to insert a new user
+
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, username);
                 preparedStatement.setString(3, password);
 
-                // Execute the insert
+
                 preparedStatement.executeUpdate();
                 System.out.println("User inserted successfully.");
 
-                // Close the prepared statement
+
                 preparedStatement.close();
             }
 
-            // Close the ResultSet
+            
             oldUsernames.close();
 
         } catch (Exception e) {
@@ -69,6 +69,98 @@ public class CRUD extends database {
 
         }
         return userExists;
+
+    }
+
+    public void insertArticle() {
+        try {
+            getConnection();
+
+            Scraping s = new Scraping();
+            s.news("https://www.newswire.lk/category/business/");
+
+            String sql = "INSERT INTO biz_news (title, content) VALUES (?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            for (String title : s.body_list.keySet()) {
+                String title1 = title;
+                String content = s.body_list.get(title);
+
+                pstmt.setString(1, title1);
+                pstmt.setString(2, content);
+
+                pstmt.executeUpdate();
+            }
+
+            pstmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public void inertInternationalNews(){
+        try {
+            getConnection();
+
+            Scraping s = new Scraping();
+            s.news("https://www.newswire.lk/category/international-news/");
+
+            String sql = "INSERT INTO international_news (title, content) VALUES (?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            for (String title : s.body_list.keySet()) {
+                String title1 = title;
+                String content = s.body_list.get(title);
+
+                pstmt.setString(1, title1);
+                pstmt.setString(2, content);
+
+                pstmt.executeUpdate();
+            }
+
+            pstmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+
+    }
+    public void insertSportsNews(){
+        try {
+            getConnection();
+
+            Scraping s = new Scraping();
+            s.news("https://www.newswire.lk/category/sports/");
+
+            String sql = "INSERT INTO sports (title, content) VALUES (?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+
+            for (String title : s.body_list.keySet()) {
+                String title1 = title;
+                String content = s.body_list.get(title);
+
+                pstmt.setString(1, title1);
+                pstmt.setString(2, content);
+
+                pstmt.executeUpdate();
+            }
+
+            pstmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+    public static void main(String[] args) {
+        CRUD c=new CRUD();
+        c.insertArticle();
+        c.inertInternationalNews();
+        c.insertSportsNews();
 
     }
 

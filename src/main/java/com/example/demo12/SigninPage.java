@@ -76,6 +76,6 @@ public class SigninPage {
         openNewStage("signuppage.fxml", "Signup Page", 500, 500); // fixed typo in FXML filename
     }
     public void loadNewsArticle() throws IOException {
-        openNewStage("NewsArticle.fxml","News Article Page",500,500);
+        openNewStage("NewsArticle.fxml","News Page",500,500);
     }
 }
