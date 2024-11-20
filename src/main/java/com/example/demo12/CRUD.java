@@ -4,9 +4,14 @@ package com.example.demo12;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 
 
 public class CRUD extends database {
+
+    HashMap<String, String> allArticles= new HashMap<>();
+
+    NewsArticle nw=new NewsArticle();
 
     public void insert(String query, String name, String username, String password) {
         try {
@@ -71,6 +76,44 @@ public class CRUD extends database {
         return userExists;
 
     }
+    public void read() {
+        try {
+            getConnection();
+            String[] sourceTables = {"biz_news", "sports", "international_news"};
+
+            for (String table : sourceTables) {
+                String selectQuery = "SELECT title, content FROM " + table;
+                ResultSet rs = statement.executeQuery(selectQuery);
+
+                String insertQuery = "INSERT INTO NEWS (Article_Name, Content) VALUES (?, ?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+
+                while (rs.next()) {
+                    String articleName = rs.getString("title"); // Assuming columns are 'title' and 'content'
+                    String content = rs.getString("content");
+
+                    preparedStatement.setString(1, articleName);
+                    preparedStatement.setString(2, content);
+                    preparedStatement.executeUpdate();
+                }
+
+                // Close the ResultSet and PreparedStatement after processing each table
+                rs.close();
+                preparedStatement.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (connection != null) connection.close();
+            } catch (Exception e) {
+                System.out.println("Error closing connection: " + e.getMessage());
+            }
+        }
+    }
+
+
+
 
     public void insertArticle() {
         try {
@@ -80,19 +123,22 @@ public class CRUD extends database {
             s.news("https://www.newswire.lk/category/business/");
 
             String sql = "INSERT INTO biz_news (title, content) VALUES (?, ?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             for (String title : s.body_list.keySet()) {
                 String title1 = title;
                 String content = s.body_list.get(title);
+                allArticles.put(title,s.body_list.get(title));
 
-                pstmt.setString(1, title1);
-                pstmt.setString(2, content);
+                preparedStatement.setString(1, title1);
+                preparedStatement.setString(2, content);
 
-                pstmt.executeUpdate();
+                preparedStatement.executeUpdate();
             }
 
-            pstmt.close();
+
+
+            preparedStatement.close();
             connection.close();
 
         } catch (Exception e) {
@@ -112,6 +158,7 @@ public class CRUD extends database {
             for (String title : s.body_list.keySet()) {
                 String title1 = title;
                 String content = s.body_list.get(title);
+                allArticles.put(title,s.body_list.get(title));
 
                 pstmt.setString(1, title1);
                 pstmt.setString(2, content);
@@ -141,6 +188,7 @@ public class CRUD extends database {
             for (String title : s.body_list.keySet()) {
                 String title1 = title;
                 String content = s.body_list.get(title);
+                allArticles.put(title,s.body_list.get(title));
 
                 pstmt.setString(1, title1);
                 pstmt.setString(2, content);
@@ -156,11 +204,13 @@ public class CRUD extends database {
         }
 
     }
+
     public static void main(String[] args) {
         CRUD c=new CRUD();
         c.insertArticle();
         c.inertInternationalNews();
         c.insertSportsNews();
+        c.read();
 
     }
 

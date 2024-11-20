@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-public class SigninPage {
+public class SigninPage extends mainController {
     @FXML
     private Button signin;
     @FXML
@@ -31,7 +31,7 @@ public class SigninPage {
         CRUD read=new CRUD();
 
         if (read.read(User_name,Password)==true){
-            loadNewsArticle();
+            loadHome();
             closeCurrentStage(signin);
 
 
@@ -60,22 +60,5 @@ public class SigninPage {
         closeCurrentStage(signup);
     }
 
-    void closeCurrentStage(Button button) {
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close(); // close the current stage
-    }
 
-    private void openNewStage(String fxmlFile, String title, int width, int height) throws IOException { // method to open new stages
-        Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlFile));
-        primaryStage.setTitle(title);
-        primaryStage.setScene(new Scene(root, width, height));
-        primaryStage.show();
-    }
-    public void loadSignuppage() throws IOException {
-        openNewStage("signuppage.fxml", "Signup Page", 500, 500); // fixed typo in FXML filename
-    }
-    public void loadNewsArticle() throws IOException {
-        openNewStage("NewsArticle.fxml","News Page",500,500);
-    }
 }

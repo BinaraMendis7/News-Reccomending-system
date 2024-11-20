@@ -7,9 +7,7 @@ public class Table {
     private String type;
 
 
-    public Table(int article_ID, String article_Name, String type) {
-        Article_ID = article_ID;
-
+    public Table(String article_Name, String type) {
         Article_Name = article_Name;
         this.type =type;
     }

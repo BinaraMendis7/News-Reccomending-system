@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Scraping {
     HashMap<String, String> body_list = new HashMap<>();
 
-    public void news(String url) {
+    public String news(String url) {
         ArrayList<String> links = new ArrayList<>();
         try {
             Document document = Jsoup.connect(url).get();
@@ -22,12 +22,9 @@ public class Scraping {
                 String navLink = link.attr("href");
                 links.add(navLink);
             }
-
-
             for (String sublink : links) {
                 try {
                     Document document1 = Jsoup.connect(sublink).get();
-
 
                     String title = document1.select(".entry-header h1").text();
 
@@ -47,5 +44,6 @@ public class Scraping {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        return url;
     }
 }

@@ -14,26 +14,28 @@ import java.util.ResourceBundle;
 
 public class NewsArticle implements Initializable {
 
-    @FXML
-    private TableColumn<Table,Integer> articleID;
 
     @FXML
     private TableColumn<Table, String> articleName;
 
     @FXML
-    private TableView<Table> table;
+    public TableView<Table> table;
 
     @FXML
-    private TableColumn<Table, String> type;
+    private TableColumn<Table, String> title;
+    ObservableList<Table> tableui= FXCollections.observableArrayList();
 
-    ObservableList<Table> tableui= FXCollections.observableArrayList(
 
-    );
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        articleID.setCellValueFactory(new PropertyValueFactory<Table,Integer>("Article_ID"));
+
+
         articleName.setCellValueFactory(new PropertyValueFactory<Table,String>("Article_Name"));
-        type.setCellValueFactory(new PropertyValueFactory<Table,String>("Type"));
+        title.setCellValueFactory(new PropertyValueFactory<Table,String>("Type"));
+
+        table.setItems(tableui);
 
     }
 }
