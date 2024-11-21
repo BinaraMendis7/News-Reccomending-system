@@ -9,17 +9,16 @@ public class KeyWordExtraction {
         CRUD crud=new CRUD();
         crud.read();
 
-        // Extract content from the scraping class's HashMap
         List<String> documents = new ArrayList<>(crud.Content); // Extract values (content) into a list
 
-        // Predefined category-specific keywords
+
         Map<String, List<String>> categoryKeywords = new HashMap<>();
         categoryKeywords.put("sports", Arrays.asList("football", "team", "match", "goal", "championship", "athlete", "competition", "tournament", "league","World Cup","Champions","T20"));
         categoryKeywords.put("technology", Arrays.asList("technology", "tech", "innovation", "smartphone", "AI"));
         categoryKeywords.put("politics", Arrays.asList("politician", "government", "nation", "policy", "reforms"));
         categoryKeywords.put("health", Arrays.asList("health", "wellness", "fitness", "nutrition", "medicine"));
 
-        // Process each document
+
         for (int i = 0; i < documents.size(); i++) {
             String category = categorizeDocument(documents.get(i), categoryKeywords);
             System.out.println("Document " + (i + 1) + " is categorized as: " + category);
@@ -42,7 +41,7 @@ public class KeyWordExtraction {
             categoryScores.put(category, score);
         }
 
-        // Determine the category with the highest score
+
         return categoryScores.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
@@ -50,10 +49,10 @@ public class KeyWordExtraction {
     }
 
     public static Set<String> extractKeywords(String document) {
-        // Tokenize the document by splitting on non-alphanumeric characters
+
         String[] tokens = document.toLowerCase().split("\\W+");
 
-        // Convert tokens into a set of keywords
+
         return new HashSet<>(Arrays.asList(tokens));
     }
 }
