@@ -232,6 +232,7 @@ public class CRUD extends database {
 
     public static void main(String[] args) {
         CRUD c=new CRUD();
+        c.insertArticle();
         c.insertHealthNews();
         c.insertSportsNews();
         c.inertPoliticalNews();
