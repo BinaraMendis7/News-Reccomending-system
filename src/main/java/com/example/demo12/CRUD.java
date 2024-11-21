@@ -4,14 +4,15 @@ package com.example.demo12;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class CRUD extends database {
 
     HashMap<String, String> allArticles= new HashMap<>();
+    ArrayList<String> Content=new ArrayList<>();
 
-    NewsArticle nw=new NewsArticle();
 
     public void insert(String query, String name, String username, String password) {
         try {
@@ -79,28 +80,18 @@ public class CRUD extends database {
     public void read() {
         try {
             getConnection();
-            String[] sourceTables = {"biz_news", "sports", "international_news"};
+            String table="news";
 
-            for (String table : sourceTables) {
-                String selectQuery = "SELECT title, content FROM " + table;
-                ResultSet rs = statement.executeQuery(selectQuery);
-
-                String insertQuery = "INSERT INTO NEWS (Article_Name, Content) VALUES (?, ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-
+            String selectQuery = "SELECT content FROM " + table;
+            ResultSet rs = statement.executeQuery(selectQuery);
                 while (rs.next()) {
-                    String articleName = rs.getString("title"); // Assuming columns are 'title' and 'content'
                     String content = rs.getString("content");
+                    Content.add(content);
 
-                    preparedStatement.setString(1, articleName);
-                    preparedStatement.setString(2, content);
-                    preparedStatement.executeUpdate();
                 }
 
-                // Close the ResultSet and PreparedStatement after processing each table
                 rs.close();
-                preparedStatement.close();
-            }
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } finally {
@@ -121,8 +112,10 @@ public class CRUD extends database {
 
             Scraping s = new Scraping();
             s.news("https://www.newswire.lk/category/business/");
+            s.news("https://www.newswire.lk/category/international-news/");
+            s.news("https://www.newswire.lk/category/sports/");
 
-            String sql = "INSERT INTO biz_news (title, content) VALUES (?, ?)";
+            String sql = "INSERT INTO news (Article_Name, content) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             for (String title : s.body_list.keySet()) {
@@ -208,9 +201,7 @@ public class CRUD extends database {
     public static void main(String[] args) {
         CRUD c=new CRUD();
         c.insertArticle();
-        c.inertInternationalNews();
-        c.insertSportsNews();
-        c.read();
+
 
     }
 

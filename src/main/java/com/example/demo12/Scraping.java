@@ -44,6 +44,7 @@ public class Scraping {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+
         return url;
     }
 }
