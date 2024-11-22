@@ -242,17 +242,38 @@ public class CRUD extends database {
         ObservableList<Article> articles = FXCollections.observableArrayList();
         try {
             getConnection();
-            String query = "SELECT Article_Name,content FROM news";
+            String query = "SELECT Article_Name,content,Article_ID FROM news";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 String title = resultSet.getString("Article_Name");
                 String content = resultSet.getString("content");
-                articles.add(new Article(title,content));
+                int ID=resultSet.getInt(3);
+                articles.add(new Article(title,content,ID));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return articles;
+    }
+
+    public void InsertLike(String userName,int Article_ID){
+        try{
+            getConnection();
+
+            String sql="INSERT INTO user_history(User_Name,Article_ID) VALUES(?,?)";
+
+            PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+            preparedStatement.setString(1,userName);
+            preparedStatement.setInt(2,Article_ID);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            connection.close();
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 

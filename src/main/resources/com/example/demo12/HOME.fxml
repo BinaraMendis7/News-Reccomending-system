@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
    <children>
-      <Label fx:id="title" layoutX="1.0" layoutY="14.0" prefHeight="53.0" prefWidth="600.0">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="newsbody" layoutX="63.0" layoutY="65.0" prefHeight="534.0" prefWidth="579.0" />
-      <Button fx:id="like" layoutX="276.0" layoutY="616.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
-      <Button fx:id="next" layoutX="353.0" layoutY="616.0" mnemonicParsing="false" onMouseClicked="#nexting" text="Next" />
+      <AnchorPane fx:id="newsbody" layoutX="63.0" layoutY="65.0" prefHeight="534.0" prefWidth="579.0">
+         <children>
+            <Label fx:id="Welcome" prefHeight="534.0" prefWidth="600.0" text="Welcome To News System.">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="161.0" layoutY="299.0" prefHeight="57.0" prefWidth="294.0" text="Please click the next button to continue">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <ButtonBar layoutX="238.0" layoutY="629.0" prefHeight="40.0" prefWidth="137.0">
+        <buttons>
+            <Button fx:id="like" minWidth="22.0" mnemonicParsing="false" onMouseClicked="#onliking" prefHeight="25.0" text="Like" />
+            <Button fx:id="next" mnemonicParsing="false" onMouseClicked="#nexting" text="Next" />
+        </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>

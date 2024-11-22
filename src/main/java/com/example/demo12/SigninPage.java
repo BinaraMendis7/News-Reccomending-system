@@ -25,9 +25,13 @@ public class SigninPage extends mainController {
     @FXML
     private TextField password;
 
+    User user;
+
+
     public void onsignin(MouseEvent mouseEvent) throws IOException {
         String User_name=username.getText();
         String Password=password.getText();
+        user=new User(User_name);
         CRUD read=new CRUD();
 
         if (read.read(User_name,Password)==true){
@@ -58,6 +62,17 @@ public class SigninPage extends mainController {
     public void onsigningup(MouseEvent mouseEvent) throws IOException {
         loadSignuppage();
         closeCurrentStage(signup);
+    }
+    public void loadHome() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HOME.fxml"));
+        Parent root = loader.load();
+
+        HomePage homePageController = loader.getController();
+        homePageController.setUser(user);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 
