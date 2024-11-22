@@ -27,7 +27,7 @@ public class mainController {
         openNewStage("signuppage.fxml", "Signup Page", 500, 500); // fixed typo in FXML filename
     }
     public void loadHome() throws IOException {
-        openNewStage("HOME.fxml","News Page",500,500);
+        openNewStage("HOME.fxml","News Page",700,700);
     }
     public void loadSport() throws IOException {
         openNewStage("Spots.fxml","Sports Page",500,500);

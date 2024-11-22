@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
+<AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
    <children>
-      <Label layoutX="149.0" layoutY="14.0" text="Welcome to the system ">
+      <Label fx:id="title" layoutX="1.0" layoutY="14.0" prefHeight="53.0" prefWidth="600.0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="sport" layoutX="259.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#onclickingsports" text="Sport" />
-      <Button fx:id="international" layoutX="259.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#onclickinginternationalnews" text="International News" />
-      <Button fx:id="business" layoutX="259.0" layoutY="211.0" mnemonicParsing="false" onMouseClicked="#onclickingbuissniess" text="Business News" />
+      <AnchorPane fx:id="newsbody" layoutX="63.0" layoutY="65.0" prefHeight="534.0" prefWidth="579.0" />
+      <Button fx:id="like" layoutX="276.0" layoutY="616.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
+      <Button fx:id="next" layoutX="353.0" layoutY="616.0" mnemonicParsing="false" onMouseClicked="#nexting" text="Next" />
    </children>
 </AnchorPane>

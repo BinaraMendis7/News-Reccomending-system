@@ -2,6 +2,9 @@ package com.example.demo12;
 
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -109,27 +112,31 @@ public class CRUD extends database {
 
     public void insertArticle() {
         try {
+
             getConnection();
 
-            Scraping s = new Scraping();
-            s.news("https://www.newswire.lk/category/business/");
-            s.news("https://www.newswire.lk/category/international-news/");
-            s.news("https://www.newswire.lk/category/sports/");
 
-            String sql = "INSERT INTO news (Article_Name, content) VALUES (?, ?)";
+            scraping.news("https://www.newswire.lk/category/business/");
+            scraping.news("https://www.newswire.lk/category/international-news/");
+            scraping.news("https://www.newswire.lk/category/sports/");
+
+
+            String sql = "INSERT INTO news (Article_Name, content, Article_ID) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            int Article_ID = 1;
+            for (String Article_Name : scraping.body_list.keySet()) {
+                String content = scraping.body_list.get(Article_Name);
 
-            for (String title : s.body_list.keySet()) {
-                String title1 = title;
-                String content = s.body_list.get(title);
 
-
-                preparedStatement.setString(1, title1);
+                preparedStatement.setString(1, Article_Name);
                 preparedStatement.setString(2, content);
+                preparedStatement.setInt(3, Article_ID);
+
 
                 preparedStatement.executeUpdate();
-            }
 
+                Article_ID++;
+            }
 
 
             preparedStatement.close();
@@ -139,6 +146,7 @@ public class CRUD extends database {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
     public void inertPoliticalNews(){
         try {
             getConnection();
@@ -216,11 +224,12 @@ public class CRUD extends database {
 
             KeyWordExtraction k4=new KeyWordExtraction();
             k4.catergorize();
-            String sql="INSERT INTO biz_news(content) VALUES(?)";
+            String sql="INSERT INTO biz_news(content,Article_Name) VALUES(?,?)";
             PreparedStatement pstm= connection.prepareStatement(sql);
 
             for (String content: k4.bussiness){
                 pstm.setString(1,content);
+                pstm.setString(2,scraping.body_list.get(content));
                 pstm.executeUpdate();
             }
             pstm.close();
@@ -229,14 +238,31 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+    public ObservableList<Article> getArticlesFromDatabase() {
+        ObservableList<Article> articles = FXCollections.observableArrayList();
+        try {
+            getConnection();
+            String query = "SELECT Article_Name,content FROM news";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                String title = resultSet.getString("Article_Name");
+                String content = resultSet.getString("content");
+                articles.add(new Article(title,content));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
 
     public static void main(String[] args) {
         CRUD c=new CRUD();
+
         c.insertArticle();
+        c.insertBussinessNews();
         c.insertHealthNews();
         c.insertSportsNews();
-        c.inertPoliticalNews();
-        c.insertBussinessNews();
 
 
     }

@@ -16,14 +16,15 @@ public class NewsArticle implements Initializable {
 
 
     @FXML
-    private TableColumn<Table, String> articleName;
+    private TableColumn<Article, String> articleName;
 
     @FXML
-    public TableView<Table> table;
+    public TableView<Article> table;
 
     @FXML
-    private TableColumn<Table, String> title;
-    ObservableList<Table> tableui= FXCollections.observableArrayList();
+    private TableColumn<Article, String> title;
+    CRUD crud=new CRUD();
+    ObservableList<Article> tableui=crud.getArticlesFromDatabase();
 
 
 
@@ -32,11 +33,13 @@ public class NewsArticle implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-        articleName.setCellValueFactory(new PropertyValueFactory<Table,String>("Article_Name"));
-        title.setCellValueFactory(new PropertyValueFactory<Table,String>("Type"));
+        articleName.setCellValueFactory(new PropertyValueFactory<Article,String>("title"));
+        title.setCellValueFactory(new PropertyValueFactory<Article,String>("content"));
 
         table.setItems(tableui);
 
     }
+
+
 }
 
