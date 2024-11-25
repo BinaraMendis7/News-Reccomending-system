@@ -1,14 +1,45 @@
 package com.example.demo12;
 
+import java.util.List;
+
 public class User {
     private String username;
     private String name;
     private String password;
+    List<String> preferredCategories;
+    List<Integer> likedArticle;
 
-    public User(String username, String name, String password) {
+
+
+
+    public List<String> getPreferredCategories() {
+        return preferredCategories;
+    }
+
+    public void setPreferredCategories(List<String> preferredCategories) {
+        this.preferredCategories = preferredCategories;
+    }
+
+    public List<Integer> getlikeArticles() {
+        return likedArticle;
+    }
+
+    public void setReadArticles(List<Integer> readArticles) {
+        this.likedArticle = readArticles;
+    }
+
+
+    public User(String username, List<String> preferredCategories, List<Integer> likedArticles) {
+        this.username = username;
+        this.preferredCategories = preferredCategories;
+        this.likedArticle = likedArticles;
+    }
+
+    public User(String username, String name, String password,List<String> preferredCategories) {
         this.username = username;
         this.name = name;
         this.password = password;
+        this.preferredCategories=preferredCategories;
     }
 
     public String getUsername() {

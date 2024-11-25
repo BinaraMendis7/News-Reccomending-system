@@ -4,6 +4,22 @@ public class Article {
    private String title;
    private String content;
    private int Article_ID;
+   private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Article(String title, String content, int article_ID, String category) {
+        this.title = title;
+        this.content = content;
+        Article_ID = article_ID;
+        this.category = category;
+    }
 
     public String getTitle() {
         return title;

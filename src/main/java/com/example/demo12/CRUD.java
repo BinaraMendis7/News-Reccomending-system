@@ -4,11 +4,14 @@ package com.example.demo12;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -16,10 +19,14 @@ public class CRUD extends database {
     Scraping scraping=new Scraping();
 
 
-    ArrayList<String> Content=new ArrayList<>();
+    HashMap<Integer,String> details=new HashMap<>();
+    HashMap<String,ArrayList<String>> userDetails=new HashMap<>();
+    ArrayList<String> detailsUser=new ArrayList<>();
+    ArrayList<ArrayList<Object>> userhistory=new ArrayList<>();
 
 
-    public void insert(String query, String name, String username, String password) {
+
+    public void insert(String query, String name, String username, String password, List<String> preferences) {
         try {
 
             getConnection();
@@ -42,6 +49,7 @@ public class CRUD extends database {
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, username);
                 preparedStatement.setString(3, password);
+                preparedStatement.setString(4, String.valueOf(preferences));
 
 
                 preparedStatement.executeUpdate();
@@ -86,11 +94,12 @@ public class CRUD extends database {
         try {
             getConnection();
 
-            String selectQuery = "SELECT content FROM  news";
+            String selectQuery = "SELECT content, Article_ID FROM  news";
             ResultSet rs = statement.executeQuery(selectQuery);
                 while (rs.next()) {
                     String content = rs.getString("content");
-                    Content.add(content);
+                    int ID=rs.getInt("Article_ID");
+                    details.put(ID,content);
 
                 }
 
@@ -120,14 +129,11 @@ public class CRUD extends database {
             scraping.news("https://www.newswire.lk/category/international-news/");
             scraping.news("https://www.newswire.lk/category/sports/");
 
-
             String sql = "INSERT INTO news (Article_Name, content, Article_ID) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             int Article_ID = 1;
             for (String Article_Name : scraping.body_list.keySet()) {
                 String content = scraping.body_list.get(Article_Name);
-
-
                 preparedStatement.setString(1, Article_Name);
                 preparedStatement.setString(2, content);
                 preparedStatement.setInt(3, Article_ID);
@@ -146,42 +152,76 @@ public class CRUD extends database {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    public String searchArticle(int ID) {
+        String type = "unknown";
+        ResultSet resultSet = null;
+        Statement statement = null;
 
-    public void inertPoliticalNews(){
         try {
             getConnection();
-            KeyWordExtraction k1=new KeyWordExtraction();
-            k1.catergorize();
+            statement = connection.createStatement();
 
-            String sql = "INSERT INTO politics(content) VALUES (?)";
-            PreparedStatement pstmt = connection.prepareStatement(sql);
-            for (String content : k1.politics) {
-                pstmt.setString(1, content);
-                pstmt.executeUpdate();
+
+            String sql = "SELECT Artiicle_ID FROM biz_news";
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                int articleId = resultSet.getInt("Artiicle_ID");
+                if (articleId == ID) {
+                    type = "Business";
+                    return type;
+                }
+            }
+            resultSet.close();
+
+            String sql1 = "SELECT Artiicle_ID FROM health";
+            resultSet = statement.executeQuery(sql1);
+            while (resultSet.next()) {
+                int articleId = resultSet.getInt("Artiicle_ID");
+                if (articleId == ID) {
+                    type = "Health";
+                    return type;
+                }
+            }
+            resultSet.close();
+
+            String sql2 = "SELECT Artiicle_ID FROM sports";
+            resultSet = statement.executeQuery(sql2);
+            while (resultSet.next()) {
+                int articleId = resultSet.getInt("Artiicle_ID");
+                if (articleId == ID) {
+                    type = "Sport";
+                    return type;
+                }
             }
 
-
-
-            pstmt.close();
-            connection.close();
-
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error in searchArticle: " + e.getMessage());
+        } finally {
+
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
         }
 
-
+        return type;
     }
+
+
     public void insertSportsNews(){
         try {
             getConnection();
 
             KeyWordExtraction k2=new KeyWordExtraction();
             k2.catergorize();
-            String sql = "INSERT INTO sports (content) VALUES (?)";
+            String sql = "INSERT INTO sports (content, Artiicle_ID) VALUES (?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
 
-            for (String content : k2.sport) {
-                pstmt.setString(1, content);
+            for (int ID : k2.sports.keySet()) {
+                pstmt.setString(1, k2.sports.get(ID));
+                pstmt.setInt(2,ID);
                 pstmt.executeUpdate();
             }
 
@@ -201,11 +241,13 @@ public class CRUD extends database {
 
             KeyWordExtraction k3=new KeyWordExtraction();
             k3.catergorize();
-            String sql = "INSERT INTO health(content) VALUES (?)";
+            String sql = "INSERT INTO health(content,Artiicle_ID) VALUES (?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
+            HashMap<Integer,String> health=new HashMap<>(k3.health);
 
-            for (String content : k3.health) {
-                pstmt.setString(1, content);
+            for (int ID:health.keySet()) {
+                pstmt.setString(1, health.get(ID));
+                pstmt.setInt(2,ID);
                 pstmt.executeUpdate();
             }
 
@@ -224,16 +266,18 @@ public class CRUD extends database {
 
             KeyWordExtraction k4=new KeyWordExtraction();
             k4.catergorize();
-            String sql="INSERT INTO biz_news(content,Article_Name) VALUES(?,?)";
+            String sql="INSERT INTO biz_news(content,Artiicle_ID) VALUES(?,?)";
             PreparedStatement pstm= connection.prepareStatement(sql);
+            HashMap<Integer,String> business=new HashMap<>(k4.business);
 
-            for (String content: k4.bussiness){
-                pstm.setString(1,content);
-                pstm.setString(2,scraping.body_list.get(content));
+            for (int ID: business.keySet()){
+                pstm.setString(1,business.get(ID));
+                pstm.setInt(2,ID);
                 pstm.executeUpdate();
             }
             pstm.close();
             connection.close();
+
         }catch (Exception e){
             System.out.println(e);
         }
@@ -256,16 +300,18 @@ public class CRUD extends database {
         return articles;
     }
 
-    public void InsertLike(String userName,int Article_ID){
+
+    public void InsertLike(String userName,int Article_ID, String type){
         try{
             getConnection();
 
-            String sql="INSERT INTO user_history(User_Name,Article_ID) VALUES(?,?)";
+            String sql="INSERT INTO user_history(User_Name,Article_ID,type) VALUES(?,?,?)";
 
             PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
             preparedStatement.setString(1,userName);
             preparedStatement.setInt(2,Article_ID);
+            preparedStatement.setString(3,type);
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
@@ -275,17 +321,49 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+    public void readUserHistory(){
 
+        try{
+            getConnection();
+
+            String sql="SELECT * FROM user_history";
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                String userName=resultSet.getString("User_Name");
+                int ID=resultSet.getInt("Article_ID");
+                String Type=resultSet.getString("type");
+                ArrayList<Object> subhistoy=new ArrayList<>();
+                subhistoy.add(userName);
+                subhistoy.add(ID);
+                userhistory.add(subhistoy);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    public void readUser(){
+
+        try{
+            getConnection();
+            String sql="SELECT * FROM user";
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                String username=resultSet.getString("username");
+                String preference=resultSet.getString("preference");
+                detailsUser.add(preference);
+                userDetails.put(username,detailsUser);
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         CRUD c=new CRUD();
-
         c.insertArticle();
-        c.insertBussinessNews();
-        c.insertHealthNews();
         c.insertSportsNews();
-
-
+        c.insertHealthNews();
+        c.insertBussinessNews();
     }
-
 }

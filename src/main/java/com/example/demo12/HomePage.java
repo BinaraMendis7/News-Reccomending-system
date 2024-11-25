@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Label;
 import javafx.collections.ObservableList;
 
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -23,6 +24,7 @@ public class HomePage {
     @FXML
     private Label Welcome;
     CRUD crud = new CRUD();
+
 
     Article article;
     User user; // User object to track the logged-in user
@@ -58,10 +60,11 @@ public class HomePage {
 
     public void onliking(MouseEvent mouseEvent) {
         if (user != null && article != null) {
-            crud.InsertLike(user.getUsername(), article.getArticle_ID());
-        } else {
-            System.out.println("User or article is null!");
+            int ID = article.getArticle_ID();
+            String type=crud.searchArticle(ID);
+            crud.InsertLike(user.getUsername(), ID, type);
         }
     }
+
 }
 

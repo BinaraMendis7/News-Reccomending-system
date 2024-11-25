@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Optional;
 
 public class SigninPage extends mainController {
@@ -24,9 +25,29 @@ public class SigninPage extends mainController {
     private TextField username;
     @FXML
     private TextField password;
+    @FXML
+    private Button admin;
 
     User user;
 
+    /*static HashMap<Integer,String> sports=new HashMap<>();
+    static HashMap<Integer,String> health=new HashMap<>();
+
+
+
+    static HashMap<Integer,String> bussiness=new HashMap<>();
+
+    public static HashMap<Integer, String> getSports() {
+        return sports;
+    }
+
+    public static HashMap<Integer, String> getHealth() {
+        return health;
+    }
+
+    public static HashMap<Integer, String> getBussiness() {
+        return bussiness;
+    }*/
 
     public void onsignin(MouseEvent mouseEvent) throws IOException {
         String User_name=username.getText();
@@ -60,15 +81,23 @@ public class SigninPage extends mainController {
     }
 
     public void onsigningup(MouseEvent mouseEvent) throws IOException {
+
         loadSignuppage();
         closeCurrentStage(signup);
+
     }
+
+
+
     public void loadHome() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HOME.fxml"));
         Parent root = loader.load();
 
         HomePage homePageController = loader.getController();
         homePageController.setUser(user);
+        /*homePageController.setSports(SigninPage.getSports());
+        homePageController.setBussiness(SigninPage.getBussiness());
+        homePageController.setHealth(SigninPage.getHealth());*/
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -76,4 +105,9 @@ public class SigninPage extends mainController {
     }
 
 
+    public void onClicking(MouseEvent mouseEvent) throws IOException {
+        loadAdmin();
+        closeCurrentStage(admin);
+
+    }
 }
