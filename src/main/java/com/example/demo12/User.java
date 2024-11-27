@@ -8,9 +8,20 @@ public class User {
     private String password;
     List<String> preferredCategories;
     List<Integer> likedArticle;
+    String typeToRecomend;
 
+    public String getTypeToRecomend() {
+        return typeToRecomend;
+    }
 
+    public void setTypeToRecomend(String typeToRecomend) {
+        this.typeToRecomend = typeToRecomend;
+    }
 
+    public User(String username, String typeToRecomend) {
+        this.username = username;
+        this.typeToRecomend = typeToRecomend;
+    }
 
     public List<String> getPreferredCategories() {
         return preferredCategories;
@@ -41,6 +52,7 @@ public class User {
         this.password = password;
         this.preferredCategories=preferredCategories;
     }
+
 
     public String getUsername() {
         return username;

@@ -15,11 +15,7 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label layoutX="161.0" layoutY="299.0" prefHeight="57.0" prefWidth="294.0" text="Please click the next button to continue">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <Button fx:id="letsGo" layoutX="211.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#letsGo" prefHeight="25.0" prefWidth="149.0" text="Lets Go" />
          </children></AnchorPane>
       <ButtonBar layoutX="238.0" layoutY="629.0" prefHeight="40.0" prefWidth="137.0">
         <buttons>

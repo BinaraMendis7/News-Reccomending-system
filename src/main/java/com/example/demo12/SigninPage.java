@@ -29,25 +29,7 @@ public class SigninPage extends mainController {
     private Button admin;
 
     User user;
-
-    /*static HashMap<Integer,String> sports=new HashMap<>();
-    static HashMap<Integer,String> health=new HashMap<>();
-
-
-
-    static HashMap<Integer,String> bussiness=new HashMap<>();
-
-    public static HashMap<Integer, String> getSports() {
-        return sports;
-    }
-
-    public static HashMap<Integer, String> getHealth() {
-        return health;
-    }
-
-    public static HashMap<Integer, String> getBussiness() {
-        return bussiness;
-    }*/
+    CRUD crud=new CRUD();
 
     public void onsignin(MouseEvent mouseEvent) throws IOException {
         String User_name=username.getText();
@@ -56,8 +38,19 @@ public class SigninPage extends mainController {
         CRUD read=new CRUD();
 
         if (read.read(User_name,Password)==true){
-            loadHome();
-            closeCurrentStage(signin);
+            crud.readUserHistory();
+            if (crud.articlesLikedByUser.containsKey(User_name)){
+                Recommend recommend=new Recommend();
+                recommend.Recommend(user);
+                System.out.println(user.getUsername());
+                loadRecomending();
+                closeCurrentStage(signin);
+            }else {
+                loadHome();
+                closeCurrentStage(signin);
+
+            }
+
 
 
         }else {
@@ -95,14 +88,22 @@ public class SigninPage extends mainController {
 
         HomePage homePageController = loader.getController();
         homePageController.setUser(user);
-        /*homePageController.setSports(SigninPage.getSports());
-        homePageController.setBussiness(SigninPage.getBussiness());
-        homePageController.setHealth(SigninPage.getHealth());*/
-
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    public void loadRecomending() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Recomending.fxml"));
+        Parent root = loader.load();
+
+        RecomendingController recomendingConroller = loader.getController();
+        recomendingConroller.setUser(user);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 
 
     public void onClicking(MouseEvent mouseEvent) throws IOException {

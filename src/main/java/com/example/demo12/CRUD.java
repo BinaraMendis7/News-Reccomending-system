@@ -9,10 +9,7 @@ import javafx.scene.control.Alert;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class CRUD extends database {
@@ -21,8 +18,14 @@ public class CRUD extends database {
 
     HashMap<Integer,String> details=new HashMap<>();
     HashMap<String,ArrayList<String>> userDetails=new HashMap<>();
-    ArrayList<String> detailsUser=new ArrayList<>();
-    ArrayList<ArrayList<Object>> userhistory=new ArrayList<>();
+    ArrayList<String> detailsUser;
+    HashMap<Integer,String> userHistory=new HashMap<>();
+    HashMap<String,ArrayList<Integer>> articlesLikedByUser;
+    ArrayList<Integer> listOfArticles;
+    HashMap<String,ArrayList<Integer>> typeOfTheUser=new HashMap<>();
+    HashMap<Integer,String> typesOfArticles=new HashMap<>();
+    ArrayList<Integer> listOfTypes;
+
 
 
 
@@ -321,9 +324,13 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+
+
     public void readUserHistory(){
 
         try{
+            articlesLikedByUser = new HashMap<>();
+            userHistory = new HashMap<>();
             getConnection();
 
             String sql="SELECT * FROM user_history";
@@ -332,10 +339,20 @@ public class CRUD extends database {
                 String userName=resultSet.getString("User_Name");
                 int ID=resultSet.getInt("Article_ID");
                 String Type=resultSet.getString("type");
-                ArrayList<Object> subhistoy=new ArrayList<>();
-                subhistoy.add(userName);
-                subhistoy.add(ID);
-                userhistory.add(subhistoy);
+                userHistory.put(ID,userName);
+                typesOfArticles.put(ID,Type);
+            }
+
+            Collection<String> usernames=userHistory.values();
+            for (String Username: usernames){
+                listOfArticles = new ArrayList<>();
+                for (int ID: userHistory.keySet()){
+                    if (userHistory.get(ID).equals(Username)){
+                        listOfArticles.add(ID);
+                    }
+                }
+                articlesLikedByUser.put(Username,listOfArticles);
+
             }
         }catch (Exception e){
             System.out.println(e);
@@ -350,6 +367,7 @@ public class CRUD extends database {
             while (resultSet.next()){
                 String username=resultSet.getString("username");
                 String preference=resultSet.getString("preference");
+                detailsUser=new ArrayList<>();
                 detailsUser.add(preference);
                 userDetails.put(username,detailsUser);
             }
