@@ -38,4 +38,7 @@ public class mainController {
     public void loadSigninPage() throws IOException {
         openNewStage("hello-view.fxml","SignInpage",500,500);
     }
+    public void loadViewHistory() throws IOException {
+        openNewStage("ViewHistory.fxml","History",500,500);
+    }
 }

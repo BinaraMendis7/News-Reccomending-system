@@ -305,17 +305,18 @@ public class CRUD extends database {
     }
 
 
-    public void InsertLike(String userName,int Article_ID, String type){
+    public void InsertLike(String userName,int Article_ID, String type,String title){
         try{
             getConnection();
 
-            String sql="INSERT INTO user_history(User_Name,Article_ID,type) VALUES(?,?,?)";
+            String sql="INSERT INTO user_history(User_Name,Article_ID,type,title) VALUES(?,?,?,?)";
 
             PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
             preparedStatement.setString(1,userName);
             preparedStatement.setInt(2,Article_ID);
             preparedStatement.setString(3,type);
+            preparedStatement.setString(4,title);
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
@@ -355,7 +356,6 @@ public class CRUD extends database {
             while (resultSet.next()) {
                 String content = resultSet.getString("content");
                 int ID = resultSet.getInt("Artiicle_ID");
-                System.out.println("Retrieved article - Content: " + content + ", ID: " + ID); // Debug log
                 categorizeBizArticle.add(new Article(content, ID));
             }
         } catch (Exception e) {
@@ -414,6 +414,26 @@ public class CRUD extends database {
         }catch (Exception e){
             System.out.println(e);
         }
+    }
+    public ObservableList<Article> readUserHistory(User user){
+        ObservableList<Article> userRead=FXCollections.observableArrayList();
+        try{
+            getConnection();
+            String query = "SELECT type,title FROM user_history WHERE User_Name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String type=resultSet.getString("type");
+                String title=resultSet.getString("title");
+                userRead.add(new Article(title,type));
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return userRead;
     }
     public void readUser(){
 

@@ -3,6 +3,9 @@ package com.example.demo12;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,21 +16,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
-public class RecomendingController {
+public class RecomendingController extends SigninPage{
     @FXML
     private AnchorPane anchorpane;
     @FXML
     private Button sports;
     @FXML
-    private Button bussiness;
+    private Button viewHistory;
     @FXML
     private Button recomending;
     @FXML
     private Button logout;
     CRUD crud=new CRUD();
     Recommend recommend=new Recommend();
-    Random random= new Random();
 
     Article article;
     User user;
@@ -56,22 +59,25 @@ public class RecomendingController {
     public void onliking(MouseEvent mouseEvent) {
         if (user != null && article != null) {
             int ID = article.getArticle_ID();
+            String title=article.getTitle();
             String type = crud.searchArticle(ID); // Get the article type
-            crud.InsertLike(user.getUsername(), ID, type); // Insert the like into the database
+            crud.InsertLike(user.getUsername(), ID, type,title); // Insert the like into the database
             Label likeLabel = new Label("You liked this article!");
             anchorpane.getChildren().add(likeLabel);
         }
     }
-    private void displayArticle(Article article) {
+    private void displayArticle(Article RandomArticle) {
         anchorpane.getChildren().clear();
         recomending.setText("Recomend");
-        if (article != null && article.getContent() != null && !article.getContent().isEmpty()) {
-            TextArea articleTextArea = new TextArea("Title: " + article.getTitle() + "\n\n" + "Content:\n" + article.getContent());
+        if (RandomArticle != null && RandomArticle.getContent() != null && !RandomArticle.getContent().isEmpty()) {
+            TextArea articleTextArea = new TextArea("Title: " + RandomArticle.getTitle() + "\n\n" + "Content:\n" + RandomArticle.getContent());
             articleTextArea.setWrapText(true);
             articleTextArea.setEditable(false);
             articleTextArea.setPrefWidth(665);
             articleTextArea.setPrefHeight(433);
             anchorpane.getChildren().add(articleTextArea);
+            article=RandomArticle;
+
         } else {
             Label noContentLabel = new Label("This article has no content available.");
             anchorpane.getChildren().add(noContentLabel);
@@ -156,7 +162,6 @@ public class RecomendingController {
                 anchorpane.getChildren().add(noContentLabel);
             }
         } else {
-            // If no more articles, show the finished label
             Label finishedLabel = new Label("No more articles to display.");
             anchorpane.getChildren().add(finishedLabel);
         }
@@ -180,6 +185,20 @@ public class RecomendingController {
         }
     }
 
-    public void viewHistory(MouseEvent mouseEvent) {
+    public void viewHistory(MouseEvent mouseEvent) throws IOException {
+        mainController mainController=new mainController();
+        loadviewHistory();
+        mainController.closeCurrentStage(viewHistory);
     }
+    public void loadviewHistory() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewHistory.fxml"));
+        Parent root = loader.load();
+
+        ViewHistory Controller = loader.getController();
+        Controller.setUser(user);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 }

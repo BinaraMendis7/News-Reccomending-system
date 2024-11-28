@@ -16,7 +16,6 @@ public class Recommend {
     public void Recommend(User user) {
         crud.readUser();
         crud.readUserHistory();
-        System.out.println(crud.articlesLikedByUser);
 
         for (String username : crud.articlesLikedByUser.keySet()) {
             if (username.equals(user.getUsername())){

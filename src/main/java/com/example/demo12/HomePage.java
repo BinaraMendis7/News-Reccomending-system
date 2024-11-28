@@ -78,8 +78,9 @@ public class HomePage{
         // Check if a user and an article are set before liking
         if (user != null && article != null) {
             int ID = article.getArticle_ID();
+            String title=article.getTitle();
             String type = crud.searchArticle(ID); // Get the article type
-            crud.InsertLike(user.getUsername(), ID, type); // Insert the like into the database
+            crud.InsertLike(user.getUsername(), ID, type,title); // Insert the like into the database
             Label likeLabel = new Label("You liked this article!");
             newsbody.getChildren().add(likeLabel);
         }
