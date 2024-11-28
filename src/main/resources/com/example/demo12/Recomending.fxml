@@ -3,10 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="546.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.RecomendingController">
+<AnchorPane prefHeight="701.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.RecomendingController">
    <children>
-      <AnchorPane fx:id="anchorpane" layoutX="7.0" layoutY="14.0" prefHeight="433.0" prefWidth="600.0" />
-      <Button fx:id="like" layoutX="185.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
-      <Button fx:id="next" layoutX="351.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#nexting" text="Next" />
+      <AnchorPane fx:id="anchorpane" layoutX="333.0" layoutY="113.0" prefHeight="433.0" prefWidth="665.0" />
+      <Button fx:id="like" layoutX="453.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
+      <Button fx:id="recomending" layoutX="55.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#Recommending" prefHeight="25.0" prefWidth="197.0" text="Recomend" />
+      <Button fx:id="sport" layoutX="55.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#sport" prefHeight="25.0" prefWidth="197.0" text="Sport" />
+      <Button fx:id="health" layoutX="55.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#health" prefHeight="25.0" prefWidth="197.0" text="Health" />
+      <Button fx:id="bussiness" layoutX="55.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#bussiness" prefHeight="25.0" prefWidth="197.0" text="Bussiness" />
+      <Button fx:id="logout" layoutX="55.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#onloggingout" prefHeight="25.0" prefWidth="197.0" text="Log Out " />
+      <Button fx:id="next" layoutX="863.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#skip" text="Next" />
+      <Button fx:id="viewHistory" layoutX="51.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#viewHistory" prefHeight="25.0" prefWidth="206.0" text="View History" />
    </children>
 </AnchorPane>

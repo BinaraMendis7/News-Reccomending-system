@@ -3,30 +3,54 @@ package com.example.demo12;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import javafx.application.Platform;
 
 public class RecomendingController {
     @FXML
     private AnchorPane anchorpane;
+    @FXML
+    private Button sports;
+    @FXML
+    private Button bussiness;
+    @FXML
+    private Button recomending;
+    @FXML
+    private Button logout;
     CRUD crud=new CRUD();
     Recommend recommend=new Recommend();
+    Random random= new Random();
 
     Article article;
     User user;
     private List<Article> articles;
+    ObservableList<Article> categorizeBArticle;
+    ObservableList<Article> categorizeSpotArticleContent;
+    ObservableList<Article> categorizeHealthArticle;
+    private String currentCategory = "";
+    private int currentIndex = 0;
     public void setUser(User user) {
         this.user = user;
 
     }
-    @FXML
     public void initialize() {
-        articles = recommend.recommendedArticles;
+        Platform.runLater(() -> {
+            articles = recommend.recommendedArticles;
+            categorizeBArticle = crud.readBiz();
+            categorizeSpotArticleContent= crud.readSport();
+            categorizeHealthArticle= crud.readHealth();
+
+        });
     }
+
 
     public void onliking(MouseEvent mouseEvent) {
         if (user != null && article != null) {
@@ -37,13 +61,159 @@ public class RecomendingController {
             anchorpane.getChildren().add(likeLabel);
         }
     }
+    private void displayArticle(Article article) {
+        anchorpane.getChildren().clear();
+        recomending.setText("Recomend");
+        if (article != null && article.getContent() != null && !article.getContent().isEmpty()) {
+            TextArea articleTextArea = new TextArea("Title: " + article.getTitle() + "\n\n" + "Content:\n" + article.getContent());
+            articleTextArea.setWrapText(true);
+            articleTextArea.setEditable(false);
+            articleTextArea.setPrefWidth(665);
+            articleTextArea.setPrefHeight(433);
+            anchorpane.getChildren().add(articleTextArea);
+        } else {
+            Label noContentLabel = new Label("This article has no content available.");
+            anchorpane.getChildren().add(noContentLabel);
+        }
+    }
+    private void loadNextArticle(ObservableList<Article> articleList) {
+        if (currentIndex < articleList.size()) {
+            displayArticle(articleList.get(currentIndex));
+            currentIndex++;
+        } else {
+            anchorpane.getChildren().clear();
+            Label finishedLabel = new Label("No more articles to display.");
+            anchorpane.getChildren().add(finishedLabel);
+        }
+    }
+    public void sport(MouseEvent mouseEvent) {
+        currentCategory = "sport";
+        currentIndex = 0;
+        loadNextArticle(categorizeSpotArticleContent);
+    }
+
+    public void health(MouseEvent mouseEvent) {
+        currentCategory = "health";
+        currentIndex = 0;
+        loadNextArticle(categorizeHealthArticle);
+    }
+
+    public void bussiness(MouseEvent mouseEvent) {
+        currentCategory = "business";
+        currentIndex = 0;
+        loadNextArticle(categorizeBArticle);
+    }
 
     // Add a member variable to track the current article index
     private int currentArticleIndex = 0;
 
     public void nexting(MouseEvent mouseEvent) {
+
+    }
+    /*public void sport(MouseEvent mouseEvent) {
+        crud.readSport();
+        if (categorizeSpotArticleContent.isEmpty()) {
+            anchorpane.getChildren().clear();
+            Label finishedLabel = new Label("No more articles to display.");
+            anchorpane.getChildren().add(finishedLabel);
+            return;
+        }
+
+        int randomIndex = random.nextInt(categorizeSpotArticleContent.size());
+        Article randomArticle = categorizeSpotArticleContent.remove(randomIndex);
+        anchorpane.getChildren().clear();
+
+        if (randomArticle.getContent() != null && !randomArticle.getContent().isEmpty()) {
+            TextArea articleTextArea = new TextArea();
+            articleTextArea.setText("Title: " + randomArticle.getTitle() + "\n\n" + "Content:\n" + randomArticle.getContent());
+            articleTextArea.setWrapText(true);
+            articleTextArea.setEditable(false);
+
+            articleTextArea.setPrefWidth(665);
+            articleTextArea.setPrefHeight(433);
+
+            article = randomArticle;
+            anchorpane.getChildren().add(articleTextArea);
+        } else {
+            Label noContentLabel = new Label("This article has no content available.");
+            anchorpane.getChildren().add(noContentLabel);
+        }
+
+    }
+
+    public void health(MouseEvent mouseEvent){
+        crud.readHealth();
+        if (categorizeHealthArticle.isEmpty()) {
+            anchorpane.getChildren().clear();
+            Label finishedLabel = new Label("No more articles to display.");
+            anchorpane.getChildren().add(finishedLabel);
+            return;
+        }
+
+        int randomIndex = random.nextInt(categorizeHealthArticle.size());
+        Article randomArticle = categorizeHealthArticle.remove(randomIndex);
+        anchorpane.getChildren().clear();
+
+        if (randomArticle.getContent() != null && !randomArticle.getContent().isEmpty()) {
+            TextArea articleTextArea = new TextArea();
+            articleTextArea.setText("Title: " + randomArticle.getTitle() + "\n\n" + "Content:\n" + randomArticle.getContent());
+            articleTextArea.setWrapText(true);
+            articleTextArea.setEditable(false);
+
+            articleTextArea.setPrefWidth(665);
+            articleTextArea.setPrefHeight(433);
+
+            article = randomArticle;
+            anchorpane.getChildren().add(articleTextArea);
+        } else {
+            Label noContentLabel = new Label("This article has no content available.");
+            anchorpane.getChildren().add(noContentLabel);
+        }
+
+    }
+
+    public void bussiness(MouseEvent mouseEvent) {
+        crud.readBiz();
+        // Check if the list is empty
+        if (categorizeBArticle.isEmpty()) {
+            Label finishedLabel = new Label("No more articles to display.");
+            anchorpane.getChildren().add(finishedLabel);
+            return;
+        }
+
+        // Select a random article
+        int randomIndex = random.nextInt(categorizeBArticle.size());
+        Article randomArticle = categorizeBArticle.remove(randomIndex);
+        anchorpane.getChildren().clear();
+        setNext(randomArticle);
+
+    }
+    Article article1;
+    public void setNext(Article randomArticle){
+        article1=randomArticle;
+    }
+    public Article getArticle(){
+        return article1;
+    }*/
+
+
+    public void onloggingout(MouseEvent mouseEvent) throws IOException {
+        Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Login out");
+        Optional<ButtonType> result=alert.showAndWait();
+        if (result.get()==ButtonType.OK){
+            mainController mainController=new mainController();
+            mainController.loadSigninPage();
+            mainController.closeCurrentStage(logout);
+        }
+
+    }
+
+
+    public void Recommending(MouseEvent mouseEvent) {
         // Clear the anchorpane only once before adding the articles
         anchorpane.getChildren().clear();
+        recomending.setText("Next");
 
         // Check if there are articles to display
         if (articles.isEmpty()) {
@@ -65,8 +235,8 @@ public class RecomendingController {
                 articleTextArea.setWrapText(true);
                 articleTextArea.setEditable(false);
 
-                articleTextArea.setPrefWidth(600);
-                articleTextArea.setPrefHeight(600);
+                articleTextArea.setPrefWidth(665);
+                articleTextArea.setPrefHeight(433);
 
                 article = RecomendedArticle;
                 anchorpane.getChildren().add(articleTextArea);
@@ -80,7 +250,25 @@ public class RecomendingController {
             anchorpane.getChildren().add(finishedLabel);
         }
     }
+    public void skip(MouseEvent mouseEvent) {
+        switch (currentCategory) {
+            case "sport":
+                loadNextArticle(categorizeSpotArticleContent);
+                break;
+            case "health":
+                loadNextArticle(categorizeHealthArticle);
+                break;
+            case "business":
+                loadNextArticle(categorizeBArticle);
+                break;
+            default:
+                Label selectCategoryLabel = new Label("Please select a category first.");
+                anchorpane.getChildren().clear();
+                anchorpane.getChildren().add(selectCategoryLabel);
+                break;
+        }
+    }
 
-
-
+    public void viewHistory(MouseEvent mouseEvent) {
+    }
 }

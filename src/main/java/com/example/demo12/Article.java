@@ -10,6 +10,11 @@ public class Article {
         return category;
     }
 
+    public Article(String content, int article_ID) {
+        this.content = content;
+        Article_ID = article_ID;
+    }
+
     public void setCategory(String category) {
         this.category = category;
     }

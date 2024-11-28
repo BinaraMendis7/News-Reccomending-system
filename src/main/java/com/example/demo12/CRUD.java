@@ -25,6 +25,7 @@ public class CRUD extends database {
     HashMap<String,ArrayList<Integer>> typeOfTheUser=new HashMap<>();
     HashMap<Integer,String> typesOfArticles=new HashMap<>();
     ArrayList<Integer> listOfTypes;
+    //ObservableList<Article> categorizeBizArticle;
 
 
 
@@ -324,6 +325,62 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+
+    public ObservableList<Article> readSport(){
+        ObservableList<Article> categorizeSpotArticle=FXCollections.observableArrayList();
+        try{
+            getConnection();
+            String sql="SELECT content,Artiicle_ID FROM sports";
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                int ID=resultSet.getInt("Artiicle_ID");
+                String content=resultSet.getString("content");
+                System.out.println(ID + " "+ "content");
+                categorizeSpotArticle.add(new Article(content, ID));
+
+            }
+        }
+        catch (Exception e){
+            System.out.println(e);
+
+        }
+        return categorizeSpotArticle;
+    }
+    public ObservableList<Article> readBiz() {
+         ObservableList<Article> categorizeBizArticle= FXCollections.observableArrayList();
+        try {
+            getConnection();
+            String sql = "SELECT content, Artiicle_ID FROM biz_news"; // Updated query
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                String content = resultSet.getString("content");
+                int ID = resultSet.getInt("Artiicle_ID");
+                System.out.println("Retrieved article - Content: " + content + ", ID: " + ID); // Debug log
+                categorizeBizArticle.add(new Article(content, ID));
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+        }
+        return categorizeBizArticle;
+    }
+    public ObservableList<Article> readHealth(){
+        ObservableList<Article> categorizeHealthArticle= FXCollections.observableArrayList();
+        try{
+            getConnection();
+            String sql="SELECT content,Artiicle_ID FROM health";
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                String content=resultSet.getString("content");
+                int ID=resultSet.getInt("Artiicle_ID");
+                categorizeHealthArticle.add(new Article(content,ID));
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return categorizeHealthArticle;
+    }
+
 
 
     public void readUserHistory(){

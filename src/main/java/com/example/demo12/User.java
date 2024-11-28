@@ -10,7 +10,7 @@ public class User {
     List<Integer> likedArticle;
     String typeToRecomend;
 
-    public String getTypeToRecomend() {
+    public String getTypeToRecomend(){
         return typeToRecomend;
     }
 
