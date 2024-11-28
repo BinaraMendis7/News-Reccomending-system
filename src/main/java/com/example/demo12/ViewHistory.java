@@ -3,7 +3,10 @@ package com.example.demo12;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -14,8 +17,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-public class ViewHistory extends SigninPage implements Initializable {
+public class ViewHistory implements Initializable {
 
     @FXML
     private TableView<Article> table;
@@ -60,6 +64,17 @@ public class ViewHistory extends SigninPage implements Initializable {
         mainController main=new mainController();
         main.closeCurrentStage(back);
 
+    }
+
+    public void loadRecomending() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Recomending.fxml"));
+        Parent root = loader.load();
+
+        RecomendingController recomendingConroller = loader.getController();
+        recomendingConroller.setUser(user);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
 

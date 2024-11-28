@@ -42,9 +42,9 @@ public class HomePage{
         articles = crud.getArticlesFromDatabase();
         remainingArticles = FXCollections.observableArrayList(articles);
     }
-
     @FXML
     public void nexting(MouseEvent mouseEvent) {
+        next.setText("Next");
         if (remainingArticles.isEmpty()) {
             Label finishedLabel = new Label("No more articles to display.");
             newsbody.getChildren().clear();
@@ -61,8 +61,8 @@ public class HomePage{
             articleTextArea.setWrapText(true);
             articleTextArea.setEditable(false);
 
-            articleTextArea.setPrefWidth(600);
-            articleTextArea.setPrefHeight(600);
+            articleTextArea.setPrefWidth(500);
+            articleTextArea.setPrefHeight(433);
 
             article = randomArticle;
             newsbody.getChildren().add(articleTextArea);

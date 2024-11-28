@@ -42,7 +42,6 @@ public class SigninPage extends mainController {
             if (crud.articlesLikedByUser.containsKey(User_name)){
                 Recommend recommend=new Recommend();
                 recommend.Recommend(user);
-                System.out.println(user.getUsername());
                 loadRecomending();
                 closeCurrentStage(signin);
             }else {

@@ -5,7 +5,8 @@
 
 <AnchorPane prefHeight="701.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.RecomendingController">
    <children>
-      <AnchorPane fx:id="anchorpane" layoutX="333.0" layoutY="113.0" prefHeight="433.0" prefWidth="665.0" />
+      <AnchorPane fx:id="anchorpane" layoutX="333.0" layoutY="113.0" prefHeight="433.0" prefWidth="665.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg');                          -fx-background-size: cover;                           -fx-background-position: center center;">
+      </AnchorPane>
       <Button fx:id="like" layoutX="453.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
       <Button fx:id="recomending" layoutX="55.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#Recommending" prefHeight="25.0" prefWidth="197.0" text="Recomend" />
       <Button fx:id="sport" layoutX="55.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#sport" prefHeight="25.0" prefWidth="197.0" text="Sport" />

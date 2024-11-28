@@ -18,7 +18,7 @@ import java.util.Random;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class RecomendingController extends SigninPage{
+public class RecomendingController{
     @FXML
     private AnchorPane anchorpane;
     @FXML
@@ -128,7 +128,7 @@ public class RecomendingController extends SigninPage{
 
 
     public void Recommending(MouseEvent mouseEvent) {
-        // Clear the anchorpane only once before adding the articles
+        recommend.Recommend(user);
         anchorpane.getChildren().clear();
         recomending.setText("Next");
 
@@ -165,6 +165,7 @@ public class RecomendingController extends SigninPage{
             Label finishedLabel = new Label("No more articles to display.");
             anchorpane.getChildren().add(finishedLabel);
         }
+
     }
     public void skip(MouseEvent mouseEvent) {
         switch (currentCategory) {

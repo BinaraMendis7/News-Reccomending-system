@@ -390,7 +390,7 @@ public class CRUD extends database {
             userHistory = new HashMap<>();
             getConnection();
 
-            String sql="SELECT * FROM user_history";
+            String sql="SELECT User_Name,Article_ID,type FROM user_history";
             ResultSet resultSet=statement.executeQuery(sql);
             while (resultSet.next()){
                 String userName=resultSet.getString("User_Name");

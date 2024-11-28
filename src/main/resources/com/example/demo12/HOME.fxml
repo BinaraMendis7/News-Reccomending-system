@@ -6,21 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
+<AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
    <children>
-      <AnchorPane fx:id="newsbody" layoutX="63.0" layoutY="65.0" prefHeight="534.0" prefWidth="579.0">
+      <AnchorPane fx:id="newsbody" layoutX="66.0" layoutY="109.0" prefHeight="415.0" prefWidth="623.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg');                          -fx-background-size: cover;                          -fx-background-position: center center;">
          <children>
-            <Label fx:id="Welcome" prefHeight="534.0" prefWidth="600.0" text="Welcome To News System.">
+            <Label fx:id="Welcome" layoutX="92.0" layoutY="150.0" prefHeight="40.0" prefWidth="493.0" text="Welcome To News System.">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Button fx:id="letsGo" layoutX="211.0" layoutY="468.0" mnemonicParsing="false" onMouseClicked="#letsGo" prefHeight="25.0" prefWidth="149.0" text="Lets Go" />
          </children></AnchorPane>
-      <ButtonBar layoutX="238.0" layoutY="629.0" prefHeight="40.0" prefWidth="137.0">
+      <ButtonBar layoutX="319.0" layoutY="619.0" prefHeight="40.0" prefWidth="137.0">
         <buttons>
             <Button fx:id="like" minWidth="22.0" mnemonicParsing="false" onMouseClicked="#onliking" prefHeight="25.0" text="Like" />
-            <Button fx:id="next" mnemonicParsing="false" onMouseClicked="#nexting" text="Next" />
+            <Button fx:id="next" mnemonicParsing="false" onMouseClicked="#nexting" text="Let's Start" />
         </buttons>
       </ButtonBar>
    </children>

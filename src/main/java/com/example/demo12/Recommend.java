@@ -1,16 +1,12 @@
 package com.example.demo12;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
+
 
 import java.util.*;
 
 public class Recommend {
     CRUD crud = new CRUD();
-    Article ARticle;
     static List<Article> recommendedArticles;
 
     public void Recommend(User user) {

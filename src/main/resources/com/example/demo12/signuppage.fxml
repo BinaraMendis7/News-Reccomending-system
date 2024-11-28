@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -43,7 +44,7 @@
                </children>
             </GridPane>
             <Button fx:id="rest" layoutX="169.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#onrest" text="Reset" />
-            <Button fx:id="enter" layoutX="430.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#onentering" text="Enter " />
+            <Button fx:id="enter" layoutX="397.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#onentering" text="Enter " />
             <Label fx:id="errormessage" layoutX="169.0" layoutY="199.0" prefHeight="27.0" prefWidth="296.0" />
             <RadioButton fx:id="sports" layoutX="175.0" layoutY="226.0" mnemonicParsing="false" text="Sports" />
             <RadioButton fx:id="health" layoutX="274.0" layoutY="226.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="82.0" text="Health" />
