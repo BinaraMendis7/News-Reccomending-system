@@ -37,6 +37,7 @@ public class RecomendingController {
     ObservableList<Article> categorizeHealthArticle;
     private String currentCategory = "";
     private int currentIndex = 0;
+    private int currentArticleIndex = 0;
     public void setUser(User user) {
         this.user = user;
 
@@ -104,97 +105,7 @@ public class RecomendingController {
         loadNextArticle(categorizeBArticle);
     }
 
-    // Add a member variable to track the current article index
-    private int currentArticleIndex = 0;
 
-    public void nexting(MouseEvent mouseEvent) {
-
-    }
-    /*public void sport(MouseEvent mouseEvent) {
-        crud.readSport();
-        if (categorizeSpotArticleContent.isEmpty()) {
-            anchorpane.getChildren().clear();
-            Label finishedLabel = new Label("No more articles to display.");
-            anchorpane.getChildren().add(finishedLabel);
-            return;
-        }
-
-        int randomIndex = random.nextInt(categorizeSpotArticleContent.size());
-        Article randomArticle = categorizeSpotArticleContent.remove(randomIndex);
-        anchorpane.getChildren().clear();
-
-        if (randomArticle.getContent() != null && !randomArticle.getContent().isEmpty()) {
-            TextArea articleTextArea = new TextArea();
-            articleTextArea.setText("Title: " + randomArticle.getTitle() + "\n\n" + "Content:\n" + randomArticle.getContent());
-            articleTextArea.setWrapText(true);
-            articleTextArea.setEditable(false);
-
-            articleTextArea.setPrefWidth(665);
-            articleTextArea.setPrefHeight(433);
-
-            article = randomArticle;
-            anchorpane.getChildren().add(articleTextArea);
-        } else {
-            Label noContentLabel = new Label("This article has no content available.");
-            anchorpane.getChildren().add(noContentLabel);
-        }
-
-    }
-
-    public void health(MouseEvent mouseEvent){
-        crud.readHealth();
-        if (categorizeHealthArticle.isEmpty()) {
-            anchorpane.getChildren().clear();
-            Label finishedLabel = new Label("No more articles to display.");
-            anchorpane.getChildren().add(finishedLabel);
-            return;
-        }
-
-        int randomIndex = random.nextInt(categorizeHealthArticle.size());
-        Article randomArticle = categorizeHealthArticle.remove(randomIndex);
-        anchorpane.getChildren().clear();
-
-        if (randomArticle.getContent() != null && !randomArticle.getContent().isEmpty()) {
-            TextArea articleTextArea = new TextArea();
-            articleTextArea.setText("Title: " + randomArticle.getTitle() + "\n\n" + "Content:\n" + randomArticle.getContent());
-            articleTextArea.setWrapText(true);
-            articleTextArea.setEditable(false);
-
-            articleTextArea.setPrefWidth(665);
-            articleTextArea.setPrefHeight(433);
-
-            article = randomArticle;
-            anchorpane.getChildren().add(articleTextArea);
-        } else {
-            Label noContentLabel = new Label("This article has no content available.");
-            anchorpane.getChildren().add(noContentLabel);
-        }
-
-    }
-
-    public void bussiness(MouseEvent mouseEvent) {
-        crud.readBiz();
-        // Check if the list is empty
-        if (categorizeBArticle.isEmpty()) {
-            Label finishedLabel = new Label("No more articles to display.");
-            anchorpane.getChildren().add(finishedLabel);
-            return;
-        }
-
-        // Select a random article
-        int randomIndex = random.nextInt(categorizeBArticle.size());
-        Article randomArticle = categorizeBArticle.remove(randomIndex);
-        anchorpane.getChildren().clear();
-        setNext(randomArticle);
-
-    }
-    Article article1;
-    public void setNext(Article randomArticle){
-        article1=randomArticle;
-    }
-    public Article getArticle(){
-        return article1;
-    }*/
 
 
     public void onloggingout(MouseEvent mouseEvent) throws IOException {
