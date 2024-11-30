@@ -24,12 +24,6 @@ public class Article {
         this.category = category;
     }
 
-    public Article(String title, String content, int article_ID, String category) {
-        this.title = title;
-        this.content = content;
-        Article_ID = article_ID;
-        this.category = category;
-    }
 
     public String getTitle() {
         return title;

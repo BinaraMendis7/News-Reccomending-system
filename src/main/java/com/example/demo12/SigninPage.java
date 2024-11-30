@@ -35,9 +35,10 @@ public class SigninPage extends mainController {
         String User_name=username.getText();
         String Password=password.getText();
         user=new User(User_name);
-        CRUD read=new CRUD();
+        user.setPassword(Password);
+        user.setUsername(User_name);
 
-        if (read.read(User_name,Password)==true){
+        if (user.SignIn()==true){
             crud.readUserHistory();
             if (crud.articlesLikedByUser.containsKey(User_name)){
                 Recommend recommend=new Recommend();
@@ -52,7 +53,11 @@ public class SigninPage extends mainController {
 
 
 
-        }else {
+        } else if (User_name.equals("Admin1")&&Password.equals("admin")) {
+            loadAdmin();
+            closeCurrentStage(signin);
+
+        } else {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input");
 

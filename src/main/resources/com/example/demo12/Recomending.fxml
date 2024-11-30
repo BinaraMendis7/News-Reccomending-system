@@ -2,18 +2,43 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="701.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.RecomendingController">
+<AnchorPane prefHeight="701.0" prefWidth="1000.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.RecomendingController">
    <children>
-      <AnchorPane fx:id="anchorpane" layoutX="333.0" layoutY="113.0" prefHeight="433.0" prefWidth="665.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg');                          -fx-background-size: cover;                           -fx-background-position: center center;">
+      <AnchorPane fx:id="anchorpane" layoutX="364.0" layoutY="101.0" prefHeight="356.0" prefWidth="489.0">
       </AnchorPane>
-      <Button fx:id="like" layoutX="453.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#onliking" text="Like" />
-      <Button fx:id="recomending" layoutX="55.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#Recommending" prefHeight="25.0" prefWidth="197.0" text="Recomend" />
-      <Button fx:id="sport" layoutX="55.0" layoutY="113.0" mnemonicParsing="false" onMouseClicked="#sport" prefHeight="25.0" prefWidth="197.0" text="Sport" />
-      <Button fx:id="health" layoutX="55.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#health" prefHeight="25.0" prefWidth="197.0" text="Health" />
-      <Button fx:id="bussiness" layoutX="55.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#bussiness" prefHeight="25.0" prefWidth="197.0" text="Bussiness" />
-      <Button fx:id="logout" layoutX="55.0" layoutY="254.0" mnemonicParsing="false" onMouseClicked="#onloggingout" prefHeight="25.0" prefWidth="197.0" text="Log Out " />
-      <Button fx:id="next" layoutX="863.0" layoutY="570.0" mnemonicParsing="false" onMouseClicked="#skip" text="Next" />
-      <Button fx:id="viewHistory" layoutX="51.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#viewHistory" prefHeight="25.0" prefWidth="206.0" text="View History" />
+      <Button fx:id="like" layoutX="326.0" layoutY="562.0" mnemonicParsing="false" onMouseClicked="#onliking" prefHeight="41.0" prefWidth="153.0" style="-fx-background-color: #ff4977;" text="Like" textFill="#22080f">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="recomending" layoutX="55.0" layoutY="426.0" mnemonicParsing="false" onMouseClicked="#Recommending" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="Recomend">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="sport" layoutX="55.0" layoutY="202.0" mnemonicParsing="false" onMouseClicked="#sport" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="Sport">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="health" layoutX="55.0" layoutY="258.0" mnemonicParsing="false" onMouseClicked="#health" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="Health">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="bussiness" layoutX="55.0" layoutY="314.0" mnemonicParsing="false" onMouseClicked="#bussiness" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="Bussiness">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="logout" layoutX="55.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#onloggingout" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="Log Out ">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="next" layoutX="793.0" layoutY="562.0" mnemonicParsing="false" onMouseClicked="#skip" prefHeight="41.0" prefWidth="154.0" style="-fx-background-color: #ff4977;" text="Next">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="viewHistory" layoutX="55.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#viewHistory" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #c920c4;" text="View History">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
    </children>
 </AnchorPane>

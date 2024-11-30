@@ -7,11 +7,12 @@ import java.util.*;
 
 public class Recommend {
     CRUD crud = new CRUD();
-    static List<Article> recommendedArticles;
+    static ArrayList<Article> recommendedArticles;
 
     public void Recommend(User user) {
         crud.readUser();
         crud.readUserHistory();
+        recommendedArticles =new ArrayList<>();
 
         for (String username : crud.articlesLikedByUser.keySet()) {
             if (username.equals(user.getUsername())){
@@ -40,7 +41,7 @@ public class Recommend {
                 String typeToRecommend = searchForType(counts, maximum);
                 user.setTypeToRecomend(typeToRecommend);
 
-                recommendedArticles = getRecommendedArticles(username, typeToRecommend);
+                recommendedArticles = getRecommendedArticles(username, user.getTypeToRecomend());
                 System.out.println(recommendedArticles);
                 System.out.println(recommendedArticles.size());
             }
@@ -70,11 +71,11 @@ public class Recommend {
         return max;
     }
 
-    public List<Article> getRecommendedArticles(String username, String category) {
+    public ArrayList<Article> getRecommendedArticles(String username, String category) {
         crud.readUserHistory();
         ObservableList<Article> allArticles = crud.getArticlesFromDatabase();
         Collection<ArrayList<Integer>> readArticleIDs = crud.articlesLikedByUser.values();
-        List<Article> recommendedArticles = new ArrayList<>();
+        ArrayList<Article> recommendedArticles = new ArrayList<>();
         for (Article article : allArticles) {
             if (crud.searchArticle(article.getArticle_ID()).equals(category) && !readArticleIDs.contains(article.getArticle_ID())) {
                 recommendedArticles.add(article);

@@ -25,12 +25,12 @@ public class CRUD extends database {
     HashMap<String,ArrayList<Integer>> typeOfTheUser=new HashMap<>();
     HashMap<Integer,String> typesOfArticles=new HashMap<>();
     ArrayList<Integer> listOfTypes;
-    //ObservableList<Article> categorizeBizArticle;
+    Article article;
 
 
 
 
-    public void insert(String query, String name, String username, String password, List<String> preferences) {
+    public void insert(String name, String username, String password, List<String> preferences) {
         try {
 
             getConnection();
@@ -48,6 +48,7 @@ public class CRUD extends database {
             }
 
             if (!userExists) {
+                String query = "INSERT INTO USER (name, username, password, preference) VALUES (?, ?, ?, ?)";
 
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
@@ -141,6 +142,10 @@ public class CRUD extends database {
                 preparedStatement.setString(1, Article_Name);
                 preparedStatement.setString(2, content);
                 preparedStatement.setInt(3, Article_ID);
+                article.setArticle_ID(Article_ID);
+                article.setTitle(Article_Name);
+                article.setContent(content);
+
 
 
                 preparedStatement.executeUpdate();
@@ -296,6 +301,7 @@ public class CRUD extends database {
                 String title = resultSet.getString("Article_Name");
                 String content = resultSet.getString("content");
                 int ID=resultSet.getInt(3);
+
                 articles.add(new Article(title,content,ID));
             }
         } catch (Exception e) {
@@ -452,13 +458,5 @@ public class CRUD extends database {
         }catch (Exception e){
             System.out.println(e);
         }
-    }
-
-    public static void main(String[] args) {
-        CRUD c=new CRUD();
-        c.insertArticle();
-        c.insertSportsNews();
-        c.insertHealthNews();
-        c.insertBussinessNews();
     }
 }

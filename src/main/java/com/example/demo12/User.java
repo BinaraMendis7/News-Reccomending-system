@@ -81,4 +81,22 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void siginUp(){
+        CRUD update = new CRUD();
+        update.insert(getName(),getUsername(),getPassword(),getPreferredCategories());
+    }
+    public boolean SignIn(){
+        String username=getUsername();
+        String password=getPassword();
+        CRUD crud=new CRUD();
+        if (crud.read(username,password)==true){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
 }

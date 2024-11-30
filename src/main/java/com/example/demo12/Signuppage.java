@@ -41,11 +41,7 @@ public class Signuppage extends SigninPage  {
         String Name = name.getText();
         String User_name = user.getText();
         String Password = pass.getText();
-
-        // Create a list for preferences
         List<String> preferenceList = new ArrayList<>();
-
-        // Check if each radio button is selected before adding its text
         if (sports.isSelected()) {
             preferenceList.add(sports.getText());
         }
@@ -56,20 +52,13 @@ public class Signuppage extends SigninPage  {
             preferenceList.add(business.getText());
         }
 
-        // Create a new User object with the gathered preferences
         User user1 = new User(User_name, Name, Password, preferenceList);
         user1.setName(Name);
         user1.setUsername(User_name);
         user1.setPassword(Password);
         user1.setPreferredCategories(preferenceList);
 
-        // Use CRUD to insert the user into the database
-        CRUD update = new CRUD();
-        String query = "INSERT INTO USER (name, username, password, preference) VALUES (?, ?, ?, ?)";
-
-
-        update.insert(query, user1.getName(), user1.getUsername(), user1.getPassword(), preferenceList);
-
+        user1.siginUp();
         closeCurrentStage(enter);
     }
 
