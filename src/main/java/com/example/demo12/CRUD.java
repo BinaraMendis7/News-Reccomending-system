@@ -13,7 +13,6 @@ import java.util.*;
 
 
 public class CRUD extends database {
-    Scraping scraping=new Scraping();
 
 
     HashMap<Integer,String> details=new HashMap<>();
@@ -25,7 +24,7 @@ public class CRUD extends database {
     HashMap<String,ArrayList<Integer>> typeOfTheUser=new HashMap<>();
     HashMap<Integer,String> typesOfArticles=new HashMap<>();
     ArrayList<Integer> listOfTypes;
-    Article article;
+
 
 
 
@@ -41,7 +40,9 @@ public class CRUD extends database {
             boolean userExists = false;
             while (oldUsernames.next()) {
                 if (oldUsernames.getString("username").equals(username)) {
-                    System.out.println("Username already exists.");
+                    Alert alert=new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Invalid Input");
+                    alert.setContentText("The User Name you Entered exisits");
                     userExists = true;
                     break;
                 }
@@ -124,34 +125,19 @@ public class CRUD extends database {
 
 
 
-    public void insertArticle() {
+    public void insertArticle(String Title, String content, int ID) {
         try {
 
             getConnection();
 
-
-            scraping.news("https://www.newswire.lk/category/business/");
-            scraping.news("https://www.newswire.lk/category/international-news/");
-            scraping.news("https://www.newswire.lk/category/sports/");
-
             String sql = "INSERT INTO news (Article_Name, content, Article_ID) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            int Article_ID = 1;
-            for (String Article_Name : scraping.body_list.keySet()) {
-                String content = scraping.body_list.get(Article_Name);
-                preparedStatement.setString(1, Article_Name);
-                preparedStatement.setString(2, content);
-                preparedStatement.setInt(3, Article_ID);
-                article.setArticle_ID(Article_ID);
-                article.setTitle(Article_Name);
-                article.setContent(content);
 
+            preparedStatement.setString(1, Title);
+            preparedStatement.setString(2, content);
+            preparedStatement.setInt(3, ID);
+            preparedStatement.executeUpdate();
 
-
-                preparedStatement.executeUpdate();
-
-                Article_ID++;
-            }
 
 
             preparedStatement.close();
@@ -219,20 +205,17 @@ public class CRUD extends database {
     }
 
 
-    public void insertSportsNews(){
+    public void insertSportsNews(String content, int ID){
         try {
             getConnection();
-
-            KeyWordExtraction k2=new KeyWordExtraction();
-            k2.catergorize();
             String sql = "INSERT INTO sports (content, Artiicle_ID) VALUES (?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
 
-            for (int ID : k2.sports.keySet()) {
-                pstmt.setString(1, k2.sports.get(ID));
-                pstmt.setInt(2,ID);
-                pstmt.executeUpdate();
-            }
+
+            pstmt.setString(1, content);
+            pstmt.setInt(2,ID);
+            pstmt.executeUpdate();
+
 
 
             pstmt.close();
@@ -244,21 +227,18 @@ public class CRUD extends database {
 
     }
 
-    public void insertHealthNews(){
+    public void insertHealthNews(String content, int ID){
         try {
             getConnection();
 
-            KeyWordExtraction k3=new KeyWordExtraction();
-            k3.catergorize();
             String sql = "INSERT INTO health(content,Artiicle_ID) VALUES (?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            HashMap<Integer,String> health=new HashMap<>(k3.health);
 
-            for (int ID:health.keySet()) {
-                pstmt.setString(1, health.get(ID));
-                pstmt.setInt(2,ID);
-                pstmt.executeUpdate();
-            }
+
+            pstmt.setString(1, content);
+            pstmt.setInt(2,ID);
+            pstmt.executeUpdate();
+
 
 
             pstmt.close();
@@ -269,21 +249,17 @@ public class CRUD extends database {
         }
 
     }
-    public void insertBussinessNews(){
+    public void insertBussinessNews(String content, int ID){
         try{
             getConnection();
 
-            KeyWordExtraction k4=new KeyWordExtraction();
-            k4.catergorize();
+
             String sql="INSERT INTO biz_news(content,Artiicle_ID) VALUES(?,?)";
             PreparedStatement pstm= connection.prepareStatement(sql);
-            HashMap<Integer,String> business=new HashMap<>(k4.business);
+            pstm.setString(1,content);
+            pstm.setInt(2,ID);
+            pstm.executeUpdate();
 
-            for (int ID: business.keySet()){
-                pstm.setString(1,business.get(ID));
-                pstm.setInt(2,ID);
-                pstm.executeUpdate();
-            }
             pstm.close();
             connection.close();
 
@@ -365,7 +341,7 @@ public class CRUD extends database {
                 categorizeBizArticle.add(new Article(content, ID));
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Log the exception
+            System.out.println(e);
         }
         return categorizeBizArticle;
     }

@@ -34,7 +34,7 @@ public class ViewHistory implements Initializable {
     ObservableList<Article> articles= FXCollections.observableArrayList();
     CRUD crud=new CRUD();
     User user;
-    public void setUser(User user) throws IOException {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -43,15 +43,14 @@ public class ViewHistory implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set up the table columns
+
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         type.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        // Run the data loading part on the JavaFX Application Thread
         Platform.runLater(() -> {
             if (user != null) {
-                articles = crud.readUserHistory(user);  // Fetch user history
-                table.setItems(articles);  // Set the articles in the TableView
+                articles = crud.readUserHistory(user);
+                table.setItems(articles);
             } else {
                 System.out.println("User is null. Cannot load user history.");
             }

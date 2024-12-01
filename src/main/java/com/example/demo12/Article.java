@@ -1,13 +1,22 @@
 package com.example.demo12;
 
+import java.security.Key;
+import java.sql.PreparedStatement;
+import java.util.HashMap;
+
 public class Article {
    private String title;
    private String content;
    private int Article_ID;
    private String category;
+   Scraping scraping=new Scraping();
+    CRUD crud=new CRUD();
 
     public String getCategory() {
         return category;
+    }
+    public Article(){
+
     }
 
     public Article(String content, int article_ID) {
@@ -57,4 +66,65 @@ public class Article {
 
     public Article(int article_ID){
         Article_ID=article_ID;
-    }}
+    }
+
+    public void scrapeArticle(){
+        System.out.println("hii");
+        scraping.news("https://www.newswire.lk/category/business/");
+        scraping.news("https://www.newswire.lk/category/international-news/");
+        scraping.news("https://www.newswire.lk/category/sports/");
+
+    }
+
+    public void insertArticle(){
+        CRUD crud=new CRUD();
+        scrapeArticle();
+
+        int Article_ID = 1;
+        for (String Article_Name : scraping.body_list.keySet()) {
+            String content = scraping.body_list.get(Article_Name);
+            setArticle_ID(Article_ID);
+            setTitle(Article_Name);
+            setContent(content);
+            crud.insertArticle(getTitle(),getContent(),getArticle_ID());
+
+            Article_ID++;
+        }
+    }
+
+    public void insertSports(){
+
+        KeyWordExtraction k2=new KeyWordExtraction();
+        k2.catergorize();
+
+        for (int ID : k2.sports.keySet()) {
+            setContent(k2.sports.get(ID));
+            setArticle_ID(ID);
+            crud.insertSportsNews(getContent(),getArticle_ID());
+        }
+
+    }
+
+    public void insertBusiness(){
+        KeyWordExtraction k4=new KeyWordExtraction();
+        k4.catergorize();
+
+        for (int ID: k4.business.keySet()){
+            setContent(k4.business.get(ID));
+            setArticle_ID(ID);
+            crud.insertBussinessNews(getContent(),getArticle_ID());
+        }
+    }
+    public void insertHealth(){
+        KeyWordExtraction k3=new KeyWordExtraction();
+        k3.catergorize();
+        HashMap<Integer,String> health=new HashMap<>(k3.health);
+
+        for (int ID:health.keySet()) {
+            setContent(health.get(ID));
+            setArticle_ID(ID);
+            crud.insertHealthNews(getContent(),getArticle_ID());
+        }
+    }
+
+}

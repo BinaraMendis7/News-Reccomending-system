@@ -1,6 +1,6 @@
 package com.example.demo12;
 
-import javafx.collections.FXCollections;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
+
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
@@ -60,8 +60,8 @@ public class RecomendingController{
         if (user != null && article != null) {
             int ID = article.getArticle_ID();
             String title=article.getTitle();
-            String type = crud.searchArticle(ID); // Get the article type
-            crud.InsertLike(user.getUsername(), ID, type,title); // Insert the like into the database
+            String type = crud.searchArticle(ID);
+            crud.InsertLike(user.getUsername(), ID, type,title);
             Label likeLabel = new Label("You liked this article!");
             anchorpane.getChildren().add(likeLabel);
         }
@@ -132,14 +132,12 @@ public class RecomendingController{
         anchorpane.getChildren().clear();
         recomending.setText("Next");
 
-        // Check if there are articles to display
         if (articles.isEmpty()) {
             Label finishedLabel = new Label("No more articles to display.");
             anchorpane.getChildren().add(finishedLabel);
             return;
         }
 
-        // Display the next article in the list based on the current index
         if (currentArticleIndex < articles.size()) {
             Article RecomendedArticle = articles.get(currentArticleIndex);
             currentArticleIndex++; // Move to the next article

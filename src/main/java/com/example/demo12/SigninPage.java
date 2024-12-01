@@ -61,7 +61,6 @@ public class SigninPage extends mainController {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input");
 
-
             Optional<ButtonType> result=alert.showAndWait();
 
             if (result.get()==ButtonType.OK){
