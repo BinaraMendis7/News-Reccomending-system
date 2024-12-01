@@ -318,7 +318,6 @@ public class CRUD extends database {
             while (resultSet.next()){
                 int ID=resultSet.getInt("Artiicle_ID");
                 String content=resultSet.getString("content");
-                System.out.println(ID + " "+ "content");
                 categorizeSpotArticle.add(new Article(content, ID));
 
             }
@@ -333,11 +332,12 @@ public class CRUD extends database {
          ObservableList<Article> categorizeBizArticle= FXCollections.observableArrayList();
         try {
             getConnection();
-            String sql = "SELECT content, Artiicle_ID FROM biz_news"; // Updated query
+            String sql = "SELECT content, Artiicle_ID FROM biz_news";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 String content = resultSet.getString("content");
                 int ID = resultSet.getInt("Artiicle_ID");
+
                 categorizeBizArticle.add(new Article(content, ID));
             }
         } catch (Exception e) {
@@ -400,6 +400,7 @@ public class CRUD extends database {
     public ObservableList<Article> readUserHistory(User user){
         ObservableList<Article> userRead=FXCollections.observableArrayList();
         try{
+
             getConnection();
             String query = "SELECT type,title FROM user_history WHERE User_Name = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);

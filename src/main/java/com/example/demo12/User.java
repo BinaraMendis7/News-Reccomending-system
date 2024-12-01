@@ -6,12 +6,26 @@ public class User {
     private String username;
     private String name;
     private String password;
-    List<String> preferredCategories;
-    List<Integer> likedArticle;
-    String typeToRecomend;
+    private List<String> preferredCategories;
+    private List<Integer> likedArticle;
+    private List<Article> articles;
+    private String typeToRecomend;
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+
 
     public String getTypeToRecomend(){
         return typeToRecomend;
+    }
+    public void addLikedArticle(Article article){
+        articles.add(article);
     }
 
     public void setTypeToRecomend(String typeToRecomend) {
@@ -98,5 +112,7 @@ public class User {
         }
 
     }
+
+
 
 }

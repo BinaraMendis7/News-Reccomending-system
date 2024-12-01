@@ -42,8 +42,7 @@ public class Recommend {
                 user.setTypeToRecomend(typeToRecommend);
 
                 recommendedArticles = getRecommendedArticles(username, user.getTypeToRecomend());
-                System.out.println(recommendedArticles);
-                System.out.println(recommendedArticles.size());
+                user.setArticles(recommendedArticles);
             }
         }
 

@@ -58,6 +58,7 @@ public class RecomendingController{
 
     public void onliking(MouseEvent mouseEvent) {
         if (user != null && article != null) {
+            user.addLikedArticle(article);
             int ID = article.getArticle_ID();
             String title=article.getTitle();
             String type = crud.searchArticle(ID);
@@ -140,9 +141,8 @@ public class RecomendingController{
 
         if (currentArticleIndex < articles.size()) {
             Article RecomendedArticle = articles.get(currentArticleIndex);
-            currentArticleIndex++; // Move to the next article
+            currentArticleIndex++;
 
-            // Check if the article has content
             if (RecomendedArticle.getContent() != null && !RecomendedArticle.getContent().isEmpty()) {
                 System.out.println(RecomendedArticle.getTitle());
                 TextArea articleTextArea = new TextArea();
