@@ -1,10 +1,6 @@
 package com.example.demo12;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.skin.ButtonSkin;
 
-import java.io.IOException;
 import java.util.*;
 
 public class KeyWordExtraction {
@@ -28,11 +24,11 @@ public class KeyWordExtraction {
 
         for (int ID : details.keySet()) {
             String category = categorizeDocument(details.get(ID), categoryKeywords);
-            if (category.equalsIgnoreCase("sports")) { // Case-insensitive match
+            if (category.equalsIgnoreCase("sports")) {
                 sports.put(ID, details.get(ID));
             } else if (category.equalsIgnoreCase("health")) {
                 health.put(ID, details.get(ID));
-            } else if (category.equalsIgnoreCase("Business")) { // Fix the spelling here
+            } else if (category.equalsIgnoreCase("Business")) {
                 business.put(ID, details.get(ID));
             }
         }
@@ -42,15 +38,14 @@ public class KeyWordExtraction {
     }
 
     public static String categorizeDocument(String document, Map<String, List<String>> categoryKeywords) {
-        // Extract keywords from the document
+
         Set<String> keywords = extractKeywords(document);
 
-        // Score matching keywords with predefined categories
         Map<String, Integer> categoryScores = new HashMap<>();
         for (String category : categoryKeywords.keySet()) {
             int score = 0;
             for (String keyword : keywords) {
-                if (categoryKeywords.get(category).contains(keyword.toLowerCase())) { // Lowercase comparison
+                if (categoryKeywords.get(category).contains(keyword.toLowerCase())) {
                     score++;
                 }
             }

@@ -14,6 +14,9 @@ public class User {
     public List<Article> getArticles() {
         return articles;
     }
+    public User(){
+
+    }
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
@@ -113,6 +116,14 @@ public class User {
 
     }
 
+    /*public void like(){
 
+        for (Article article: getArticles()){
+            String title=article.getTitle();
+            int ID=article.getArticle_ID();
+            String type=crud.searchArticle(ID);
+            crud.InsertLike(getUsername(), ID, type,title);
+        }
+    }*/
 
 }

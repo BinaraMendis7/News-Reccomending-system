@@ -1,8 +1,8 @@
 package com.example.demo12;
 
-import java.security.Key;
-import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Article {
    private String title;
@@ -11,6 +11,8 @@ public class Article {
    private String category;
    Scraping scraping=new Scraping();
     CRUD crud=new CRUD();
+    Admin admin=new Admin();
+    User user=new User();
 
     public String getCategory() {
         return category;
@@ -76,6 +78,7 @@ public class Article {
 
     }
 
+
     public void insertArticle(){
         CRUD crud=new CRUD();
         scrapeArticle();
@@ -87,10 +90,22 @@ public class Article {
             setTitle(Article_Name);
             setContent(content);
             crud.insertArticle(getTitle(),getContent(),getArticle_ID());
+            Article article=new Article(getTitle(),getContent(),getArticle_ID());
+            admin.addArticle(article);
 
             Article_ID++;
         }
     }
+
+    /*public List<Article> read(){
+        List<Article> articles=new ArrayList<>();
+        crud.getArticlesFromDatabase();
+        Article article=new Article(getTitle(),getContent(),getArticle_ID());
+        user.setArticles(articles);
+        user.addLikedArticle(article);
+        return articles;
+
+    }*/
 
     public void insertSports(){
 

@@ -30,6 +30,7 @@ public class SigninPage extends mainController {
 
     User user;
     CRUD crud=new CRUD();
+    Admin Admin=new Admin();
 
     public void onsignin(MouseEvent mouseEvent) throws IOException {
         String User_name=username.getText();
@@ -37,6 +38,8 @@ public class SigninPage extends mainController {
         user=new User(User_name);
         user.setPassword(Password);
         user.setUsername(User_name);
+        Admin.setUserName_Entered(User_name);
+        Admin.setPassword_entered(Password);
 
         if (user.SignIn()==true){
             crud.readUserHistory();
@@ -53,13 +56,14 @@ public class SigninPage extends mainController {
 
 
 
-        } else if (User_name.equals("Admin1")&&Password.equals("admin")) {
+        } else if (Admin.AdminSignIN()==true) {
             loadAdmin();
             closeCurrentStage(signin);
 
         } else {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input");
+            alert.setContentText("The username and the password you entered is incorrect\n please enter again");
 
             Optional<ButtonType> result=alert.showAndWait();
 
