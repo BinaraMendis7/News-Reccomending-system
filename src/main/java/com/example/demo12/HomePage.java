@@ -2,6 +2,7 @@ package com.example.demo12;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -75,19 +76,15 @@ public class HomePage{
 
     @FXML
     public void onliking(MouseEvent mouseEvent) {
-        // Check if a user and an article are set before liking
         if (user != null && article != null) {
-            int ID = article.getArticle_ID();
-            String title=article.getTitle();
-            String type = crud.searchArticle(ID); // Get the article type
-            crud.InsertLike(user.getUsername(), ID, type,title); // Insert the like into the database
+            user.like(article);
             Label likeLabel = new Label("You liked this article!");
             newsbody.getChildren().add(likeLabel);
+        }else{
+            Alert alert=new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("User not found reload");
+            alert.setContentText("Reload");
         }
 
-    }
-
-
-    public void letsGo(MouseEvent mouseEvent) {
     }
 }

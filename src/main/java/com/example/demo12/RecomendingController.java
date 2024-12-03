@@ -14,11 +14,13 @@ import java.io.IOException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class RecomendingController{
+public class RecomendingController implements Runnable{
     @FXML
     private AnchorPane anchorpane;
     @FXML
@@ -41,6 +43,7 @@ public class RecomendingController{
     private String currentCategory = "";
     private int currentIndex = 0;
     private int currentArticleIndex = 0;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     public void setUser(User user) {
         this.user = user;
 
@@ -59,12 +62,7 @@ public class RecomendingController{
     public void onliking(MouseEvent mouseEvent) {
         if (user != null && article != null) {
             user.addLikedArticle(article);
-            int ID = article.getArticle_ID();
-            String title=article.getTitle();
-            String type = crud.searchArticle(ID);
-            crud.InsertLike(user.getUsername(), ID, type,title);
-            Label likeLabel = new Label("You liked this article!");
-            anchorpane.getChildren().add(likeLabel);
+            user.like(article);
         }
     }
     private void displayArticle(Article RandomArticle) {
@@ -129,10 +127,17 @@ public class RecomendingController{
 
 
     public void Recommending(MouseEvent mouseEvent) {
-        recommend.Recommend(user);
         anchorpane.getChildren().clear();
         recomending.setText("Next");
 
+        executor.submit(() -> {
+            recommend.Recommend(user);
+            articles = recommend.recommendedArticles;
+            Platform.runLater(this::displayNextRecommendedArticle);
+        });
+    }
+
+    private void displayNextRecommendedArticle() {
         if (articles.isEmpty()) {
             Label finishedLabel = new Label("No more articles to display.");
             anchorpane.getChildren().add(finishedLabel);
@@ -140,30 +145,13 @@ public class RecomendingController{
         }
 
         if (currentArticleIndex < articles.size()) {
-            Article RecomendedArticle = articles.get(currentArticleIndex);
+            Article recommendedArticle = articles.get(currentArticleIndex);
             currentArticleIndex++;
-
-            if (RecomendedArticle.getContent() != null && !RecomendedArticle.getContent().isEmpty()) {
-                System.out.println(RecomendedArticle.getTitle());
-                TextArea articleTextArea = new TextArea();
-                articleTextArea.setText("Title: " + RecomendedArticle.getTitle() + "\n\n" + "Content:\n" + RecomendedArticle.getContent());
-                articleTextArea.setWrapText(true);
-                articleTextArea.setEditable(false);
-
-                articleTextArea.setPrefWidth(665);
-                articleTextArea.setPrefHeight(433);
-
-                article = RecomendedArticle;
-                anchorpane.getChildren().add(articleTextArea);
-            } else {
-                Label noContentLabel = new Label("This article has no content available.");
-                anchorpane.getChildren().add(noContentLabel);
-            }
+            displayArticle(recommendedArticle);
         } else {
             Label finishedLabel = new Label("No more articles to display.");
             anchorpane.getChildren().add(finishedLabel);
         }
-
     }
     public void skip(MouseEvent mouseEvent) {
         switch (currentCategory) {
@@ -200,4 +188,8 @@ public class RecomendingController{
         stage.show();
     }
 
+    @Override
+    public void run() {
+        recommend.Recommend(user);
+    }
 }

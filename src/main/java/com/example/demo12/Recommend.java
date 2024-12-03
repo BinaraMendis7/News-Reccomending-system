@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.*;
 
-public class Recommend {
+public class Recommend{
     CRUD crud = new CRUD();
     static ArrayList<Article> recommendedArticles;
 

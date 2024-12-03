@@ -5,6 +5,7 @@ package com.example.demo12;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,9 +41,6 @@ public class CRUD extends database {
             boolean userExists = false;
             while (oldUsernames.next()) {
                 if (oldUsernames.getString("username").equals(username)) {
-                    Alert alert=new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Input");
-                    alert.setContentText("The User Name you Entered exisits");
                     userExists = true;
                     break;
                 }
@@ -59,10 +57,26 @@ public class CRUD extends database {
 
 
                 preparedStatement.executeUpdate();
-                System.out.println("User inserted successfully.");
+                Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Invalid Input");
+                alert.setContentText("The User is added Successfully");
+
+                Optional<ButtonType> result=alert.showAndWait();
+
+                if (result.get()==ButtonType.OK){
+                    mainController mainController=new mainController();
+                    mainController.loadSigninPage();
+
+                }
 
 
                 preparedStatement.close();
+            }
+            else{
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Invalid Input");
+                alert.setContentText("The User Name you Entered exisits");
+
             }
 
             

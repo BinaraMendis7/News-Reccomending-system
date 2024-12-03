@@ -115,15 +115,15 @@ public class User {
         }
 
     }
+    CRUD crud=new CRUD();
 
-    /*public void like(){
+    public void like(Article article){
+        String title=article.getTitle();
+        int ID=article.getArticle_ID();
+        String type=crud.searchArticle(ID);
+        crud.InsertLike(getUsername(), ID, type,title);
 
-        for (Article article: getArticles()){
-            String title=article.getTitle();
-            int ID=article.getArticle_ID();
-            String type=crud.searchArticle(ID);
-            crud.InsertLike(getUsername(), ID, type,title);
-        }
-    }*/
+    }
+
 
 }
