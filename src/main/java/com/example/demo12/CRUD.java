@@ -456,4 +456,24 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+    final List<String> list=Arrays.asList("news","sports","health","biz_news");
+    public void deleteArticle(){
+        try{
+            getConnection();
+
+            for (String table: list){
+                String sql1 = "TRUNCATE TABLE " + table;
+                statement.executeUpdate(sql1);
+
+            }
+            connection.close();
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid Input");
+            alert.setContentText("All articles were Deleted");
+            alert.showAndWait();
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
 }

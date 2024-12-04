@@ -31,6 +31,8 @@ public class RecomendingController{
     private Button recomending;
     @FXML
     private Button logout;
+    @FXML
+    private Button next;
     CRUD crud=new CRUD();
     Recommend recommend=new Recommend();
 
@@ -83,6 +85,7 @@ public class RecomendingController{
     }
     private void loadNextArticle(ObservableList<Article> articleList) {
         recomending.setText("Recommend");
+        next.setVisible(true);
         if (currentIndex < articleList.size()) {
             displayArticle(articleList.get(currentIndex));
             currentIndex++;
@@ -129,6 +132,7 @@ public class RecomendingController{
     public void Recommending(MouseEvent mouseEvent) {
         anchorpane.getChildren().clear();
         recomending.setText("Next");
+        next.setVisible(false);
 
         executor.submit(() -> {
             recommend.Recommend(user);

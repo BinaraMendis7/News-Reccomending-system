@@ -42,5 +42,10 @@ public class Admin{
         articles.add(article);
 
     }
+    public void deleteArticle(){
+        CRUD crud=new CRUD();
+        crud.deleteArticle();
+        articles.clear();
+    }
 }
 

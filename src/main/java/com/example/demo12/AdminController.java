@@ -38,5 +38,10 @@ public class AdminController extends mainController{
 
         }
     }
+
+    public void ondeleting(MouseEvent mouseEvent) {
+        Admin admin=new Admin();
+        admin.deleteArticle();
+    }
 }
 
