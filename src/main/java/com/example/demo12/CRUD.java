@@ -456,13 +456,4 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
-    public void deleteArticle(){
-        try{
-            getConnection();
-            String sql=""
-
-        }catch (Exception e){
-            System.out.println(e);
-        }
-    }
 }
