@@ -58,7 +58,7 @@ public class CRUD extends database {
 
                 preparedStatement.executeUpdate();
                 Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Invalid Input");
+                alert.setTitle("Success");
                 alert.setContentText("The User is added Successfully");
 
                 Optional<ButtonType> result=alert.showAndWait();
@@ -76,6 +76,7 @@ public class CRUD extends database {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Input");
                 alert.setContentText("The User Name you Entered exisits");
+                alert.showAndWait();
 
             }
 

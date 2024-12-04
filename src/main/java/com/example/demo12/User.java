@@ -1,5 +1,8 @@
 package com.example.demo12;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class User {
@@ -7,9 +10,17 @@ public class User {
     private String name;
     private String password;
     private List<String> preferredCategories;
-    private List<Integer> likedArticle;
     private List<Article> articles;
     private String typeToRecomend;
+    private ObservableList<Article> userHistory;
+
+    public ObservableList<Article> getUserHistory() {
+        return userHistory;
+    }
+
+    public void setUserHistory(ObservableList<Article> userHistory) {
+        this.userHistory = userHistory;
+    }
 
     public List<Article> getArticles() {
         return articles;
@@ -46,21 +57,6 @@ public class User {
 
     public void setPreferredCategories(List<String> preferredCategories) {
         this.preferredCategories = preferredCategories;
-    }
-
-    public List<Integer> getlikeArticles() {
-        return likedArticle;
-    }
-
-    public void setReadArticles(List<Integer> readArticles) {
-        this.likedArticle = readArticles;
-    }
-
-
-    public User(String username, List<String> preferredCategories, List<Integer> likedArticles) {
-        this.username = username;
-        this.preferredCategories = preferredCategories;
-        this.likedArticle = likedArticles;
     }
 
     public User(String username, String name, String password,List<String> preferredCategories) {
@@ -124,6 +120,12 @@ public class User {
         crud.InsertLike(getUsername(), ID, type,title);
 
     }
+
+    public void viewHistory(User user){
+        setUserHistory(crud.readUserHistory(user));
+    }
+
+
 
 
 }

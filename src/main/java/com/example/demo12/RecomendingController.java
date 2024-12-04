@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
-public class RecomendingController implements Runnable{
+public class RecomendingController{
     @FXML
     private AnchorPane anchorpane;
     @FXML
@@ -67,7 +67,6 @@ public class RecomendingController implements Runnable{
     }
     private void displayArticle(Article RandomArticle) {
         anchorpane.getChildren().clear();
-        recomending.setText("Recomend");
         if (RandomArticle != null && RandomArticle.getContent() != null && !RandomArticle.getContent().isEmpty()) {
             TextArea articleTextArea = new TextArea("Title: " + RandomArticle.getTitle() + "\n\n" + "Content:\n" + RandomArticle.getContent());
             articleTextArea.setWrapText(true);
@@ -83,6 +82,7 @@ public class RecomendingController implements Runnable{
         }
     }
     private void loadNextArticle(ObservableList<Article> articleList) {
+        recomending.setText("Recommend");
         if (currentIndex < articleList.size()) {
             displayArticle(articleList.get(currentIndex));
             currentIndex++;
@@ -188,8 +188,4 @@ public class RecomendingController implements Runnable{
         stage.show();
     }
 
-    @Override
-    public void run() {
-        recommend.Recommend(user);
-    }
 }

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -49,10 +50,13 @@ public class ViewHistory implements Initializable {
 
         Platform.runLater(() -> {
             if (user != null) {
-                articles = crud.readUserHistory(user);
+                user.viewHistory(user);
+                articles = user.getUserHistory();
                 table.setItems(articles);
             } else {
-                System.out.println("User is null. Cannot load user history.");
+                Alert alert=new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("User Not found Error");
+                alert.setContentText("Please Login Again");
             }
         });
     }

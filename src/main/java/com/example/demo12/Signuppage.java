@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Signuppage extends SigninPage  {
     @FXML
@@ -51,15 +52,27 @@ public class Signuppage extends SigninPage  {
         if (business.isSelected()) {
             preferenceList.add(business.getText());
         }
+        if (User_name.equals("Admin1")){
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Invalid input");
+            alert.setContentText("You Cant use Admin1 as your username");
+            Optional<ButtonType> result=alert.showAndWait();
 
-        User user1 = new User(User_name, Name, Password, preferenceList);
-        user1.setName(Name);
-        user1.setUsername(User_name);
-        user1.setPassword(Password);
-        user1.setPreferredCategories(preferenceList);
+            if (result.get()==ButtonType.OK){
+                user.clear();
 
-        user1.siginUp();
-        closeCurrentStage(enter);
+            }
+        }
+        else{
+            User user1 = new User(User_name, Name, Password, preferenceList);
+            user1.setName(Name);
+            user1.setUsername(User_name);
+            user1.setPassword(Password);
+            user1.setPreferredCategories(preferenceList);
+
+            user1.siginUp();
+            closeCurrentStage(enter);
+        }
     }
 
 }
