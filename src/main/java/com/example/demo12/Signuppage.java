@@ -18,17 +18,11 @@ public class Signuppage extends SigninPage  {
     @FXML
     private Button enter;
     @FXML
-    private Button rest;
-    @FXML
-    private Label errormessage;
-    @FXML
     private RadioButton sports;
     @FXML
     private RadioButton health;
     @FXML
     private RadioButton business;
-    @FXML
-    private ToggleGroup myToggleGroup;
 
 
     public void onrest(MouseEvent mouseEvent) {
@@ -69,10 +63,10 @@ public class Signuppage extends SigninPage  {
             user1.setUsername(User_name);
             user1.setPassword(Password);
             user1.setPreferredCategories(preferenceList);
-
             user1.siginUp();
             closeCurrentStage(enter);
         }
+
     }
 
 }

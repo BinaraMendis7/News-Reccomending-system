@@ -10,7 +10,7 @@ public abstract class database {
     protected Connection connection;
     protected Statement statement;
 
-    public void getConnection() throws ClassNotFoundException, SQLException {
+    protected void getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(url, user, password);
         statement = connection.createStatement();

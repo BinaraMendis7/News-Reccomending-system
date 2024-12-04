@@ -22,7 +22,6 @@ public class CRUD extends database {
     HashMap<Integer,String> userHistory=new HashMap<>();
     HashMap<String,ArrayList<Integer>> articlesLikedByUser;
     ArrayList<Integer> listOfArticles;
-    HashMap<String,ArrayList<Integer>> typeOfTheUser=new HashMap<>();
     HashMap<Integer,String> typesOfArticles=new HashMap<>();
     ArrayList<Integer> listOfTypes;
 
@@ -75,8 +74,15 @@ public class CRUD extends database {
             else{
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Input");
-                alert.setContentText("The User Name you Entered exisits");
-                alert.showAndWait();
+                alert.setContentText("The User Name you Entered is already in the system");
+                Optional<ButtonType> result=alert.showAndWait();
+
+                if (result.get()==ButtonType.OK){
+                    mainController mainController=new mainController();
+                    mainController.loadSignuppage();
+
+                }
+
 
             }
 
@@ -143,8 +149,8 @@ public class CRUD extends database {
     public void insertArticle(String Title, String content, int ID) {
         try {
 
-            getConnection();
 
+            getConnection();
             String sql = "INSERT INTO news (Article_Name, content, Article_ID) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -445,6 +451,15 @@ public class CRUD extends database {
                 detailsUser.add(preference);
                 userDetails.put(username,detailsUser);
             }
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+    public void deleteArticle(){
+        try{
+            getConnection();
+            String sql=""
 
         }catch (Exception e){
             System.out.println(e);

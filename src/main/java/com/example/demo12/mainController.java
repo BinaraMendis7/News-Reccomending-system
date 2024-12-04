@@ -29,16 +29,10 @@ public class mainController {
     public void loadHome() throws IOException {
         openNewStage("HOME.fxml","News Page",700,700);
     }
-    public void loadSport() throws IOException {
-        openNewStage("Spots.fxml","Sports Page",500,500);
-    }
     public void loadAdmin() throws IOException {
         openNewStage("admin.fxml","Admin News",500,500);
     }
     public void loadSigninPage() throws IOException {
         openNewStage("hello-view.fxml","SignInpage",500,500);
-    }
-    public void loadViewHistory() throws IOException {
-        openNewStage("ViewHistory.fxml","History",500,500);
     }
 }
