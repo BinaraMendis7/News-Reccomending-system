@@ -22,10 +22,7 @@ public class HomePage{
     private Button next;
     @FXML
     private AnchorPane newsbody;
-    @FXML
-    private Label title;
-    @FXML
-    private Label Welcome;
+
 
     CRUD crud = new CRUD();
     Article article;
@@ -90,7 +87,7 @@ public class HomePage{
 
     public void backing(MouseEvent mouseEvent) throws IOException {
         mainController mainController=new mainController();
-        mainController.loadSignuppage();
+        mainController.loadSigninPage();
         mainController.closeCurrentStage(back);
 
     }

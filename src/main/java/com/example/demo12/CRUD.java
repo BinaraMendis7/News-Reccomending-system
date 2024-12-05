@@ -328,6 +328,27 @@ public class CRUD extends database {
             System.out.println(e);
         }
     }
+    public String searchTitle(int ID) {
+        String title = "unknown";
+        try {
+            getConnection();
+            String sql = "SELECT Article_Name FROM news WHERE Article_ID=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, ID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                title = resultSet.getString("Article_Name");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return title;
+    }
+
+
 
     public ObservableList<Article> readSport(){
         ObservableList<Article> categorizeSpotArticle=FXCollections.observableArrayList();
@@ -338,7 +359,8 @@ public class CRUD extends database {
             while (resultSet.next()){
                 int ID=resultSet.getInt("Artiicle_ID");
                 String content=resultSet.getString("content");
-                categorizeSpotArticle.add(new Article(content, ID));
+                String title=searchTitle(ID);
+                categorizeSpotArticle.add(new Article(title,content,ID));
 
             }
         }
@@ -357,8 +379,9 @@ public class CRUD extends database {
             while (resultSet.next()) {
                 String content = resultSet.getString("content");
                 int ID = resultSet.getInt("Artiicle_ID");
+                String title=searchTitle(ID);
 
-                categorizeBizArticle.add(new Article(content, ID));
+                categorizeBizArticle.add(new Article(title,content, ID));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -374,7 +397,8 @@ public class CRUD extends database {
             while (resultSet.next()){
                 String content=resultSet.getString("content");
                 int ID=resultSet.getInt("Artiicle_ID");
-                categorizeHealthArticle.add(new Article(content,ID));
+                String title=searchTitle(ID);
+                categorizeHealthArticle.add(new Article(title,content,ID));
             }
 
         }catch (Exception e){

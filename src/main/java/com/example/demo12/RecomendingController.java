@@ -65,6 +65,8 @@ public class RecomendingController{
         if (user != null && article != null) {
             user.addLikedArticle(article);
             user.like(article);
+            Label likeLabel = new Label("You liked this article!");
+            anchorpane.getChildren().add(likeLabel);
         }
     }
     private void displayArticle(Article RandomArticle) {
