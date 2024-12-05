@@ -1,6 +1,6 @@
 package com.example.demo12;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +13,7 @@ public class Article {
     CRUD crud=new CRUD();
     Admin admin=new Admin();
     User user=new User();
+     public List<User> readers;
 
     public String getCategory() {
         return category;
@@ -130,6 +131,11 @@ public class Article {
             setArticle_ID(ID);
             crud.insertHealthNews(getContent(),getArticle_ID());
         }
+    }
+    public void readUser(User user){
+        readers.add(user);
+        user.readArticle(user.article);
+
     }
 
 }

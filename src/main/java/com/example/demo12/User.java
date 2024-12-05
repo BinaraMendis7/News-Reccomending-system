@@ -1,6 +1,5 @@
 package com.example.demo12;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -13,6 +12,8 @@ public class User {
     private List<Article> articles;
     private String typeToRecomend;
     private ObservableList<Article> userHistory;
+    Article article;
+    public List<Article> readArtcles;
 
     public ObservableList<Article> getUserHistory() {
         return userHistory;
@@ -26,7 +27,6 @@ public class User {
         return articles;
     }
     public User(){
-
     }
 
     public void setArticles(List<Article> articles) {
@@ -40,6 +40,7 @@ public class User {
     }
     public void addLikedArticle(Article article){
         articles.add(article);
+
     }
 
     public void setTypeToRecomend(String typeToRecomend) {
@@ -118,11 +119,16 @@ public class User {
         int ID=article.getArticle_ID();
         String type=crud.searchArticle(ID);
         crud.InsertLike(getUsername(), ID, type,title);
-
     }
 
     public void viewHistory(User user){
         setUserHistory(crud.readUserHistory(user));
+    }
+
+    public void readArticle(Article article) {
+        readArtcles.add(article);
+        article.readUser(this);
+
     }
 
 
