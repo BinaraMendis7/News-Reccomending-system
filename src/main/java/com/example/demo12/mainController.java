@@ -33,6 +33,6 @@ public class mainController {
         openNewStage("admin.fxml","Admin News",500,500);
     }
     public void loadSigninPage() throws IOException {
-        openNewStage("hello-view.fxml","SignInpage",500,500);
+        openNewStage("hello-view.fxml","SignInpage",600,400);
     }
 }

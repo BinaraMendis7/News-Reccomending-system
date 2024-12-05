@@ -97,16 +97,6 @@ public class Article {
         }
     }
 
-    /*public List<Article> read(){
-        List<Article> articles=new ArrayList<>();
-        crud.getArticlesFromDatabase();
-        Article article=new Article(getTitle(),getContent(),getArticle_ID());
-        user.setArticles(articles);
-        user.addLikedArticle(article);
-        return articles;
-
-    }*/
-
     public void insertSports(){
 
         KeyWordExtraction k2=new KeyWordExtraction();

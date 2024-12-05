@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.SigninPage">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.SigninPage">
    <children>
       <Label layoutX="161.0" layoutY="14.0" text="Welcome to news channel">
          <font>
@@ -24,6 +24,5 @@
             <PasswordField fx:id="password" layoutX="88.0" layoutY="89.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="admin" layoutX="92.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#onClicking" text="Im a admin" />
    </children>
 </Pane>

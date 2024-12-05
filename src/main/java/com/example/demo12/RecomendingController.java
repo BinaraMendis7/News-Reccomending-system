@@ -119,6 +119,7 @@ public class RecomendingController{
     public void onloggingout(MouseEvent mouseEvent) throws IOException {
         Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Login out");
+        alert.setContentText("Do you want to log out from your account");
         Optional<ButtonType> result=alert.showAndWait();
         if (result.get()==ButtonType.OK){
             mainController mainController=new mainController();

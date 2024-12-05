@@ -17,7 +17,7 @@ import java.util.Random;
 public class HomePage{
 
     @FXML
-    private Button previous;
+    private Button back;
     @FXML
     private Button next;
     @FXML
@@ -85,6 +85,13 @@ public class HomePage{
             alert.setTitle("User not found reload");
             alert.setContentText("Reload");
         }
+
+    }
+
+    public void backing(MouseEvent mouseEvent) throws IOException {
+        mainController mainController=new mainController();
+        mainController.loadSignuppage();
+        mainController.closeCurrentStage(back);
 
     }
 }

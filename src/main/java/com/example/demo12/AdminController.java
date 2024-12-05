@@ -1,5 +1,6 @@
 package com.example.demo12;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -22,21 +23,36 @@ public class AdminController extends mainController{
 
     public void OnManaging(MouseEvent mouseEvent) throws IOException {
         manageNews.setText("PROCESS ON GOING");
-        Article article=new Article();
-        article.insertArticle();
-        article.insertSports();
-        article.insertBusiness();
-        article.insertHealth();
-        Alert alert=new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid Input");
+
+        new Thread(() -> {
+            try {
+                Article article = new Article();
+                article.insertArticle();
+                article.insertSports();
+                article.insertBusiness();
+                article.insertHealth();
 
 
-        Optional<ButtonType> result=alert.showAndWait();
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setContentText("All articles added successfully!");
 
-        if (result.get()==ButtonType.OK) {
-            manageNews.setText("Done");
-
-        }
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        manageNews.setText("Done");
+                    }
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("An error occurred while adding articles.");
+                    alert.showAndWait();
+                    manageNews.setText("Failed");
+                });
+            }
+        }).start();
     }
 
     public void ondeleting(MouseEvent mouseEvent) {

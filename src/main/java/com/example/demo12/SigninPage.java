@@ -62,7 +62,7 @@ public class SigninPage extends mainController {
         } else {
             Alert alert=new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Input");
-            alert.setContentText("The username and the password you entered is incorrect\n please enter again");
+            alert.setContentText("The credentials you entered is incorrect\n please enter again");
 
             Optional<ButtonType> result=alert.showAndWait();
 
@@ -108,14 +108,5 @@ public class SigninPage extends mainController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-
-
-
-    public void onClicking(MouseEvent mouseEvent) throws IOException {
-        loadAdmin();
-        closeCurrentStage(admin);
-
     }
 }

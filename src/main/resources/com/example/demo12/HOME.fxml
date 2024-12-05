@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
+<AnchorPane maxHeight="700.0" maxWidth="700.0" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-image: url('file:/C:/Users/binar/IdeaProjects/demo12/news.jpg'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo12.HomePage">
    <children>
-      <AnchorPane fx:id="newsbody" layoutX="66.0" layoutY="109.0" prefHeight="415.0" prefWidth="623.0">
+      <AnchorPane fx:id="newsbody" layoutX="66.0" layoutY="109.0" prefHeight="500.0" prefWidth="600.0">
          <children>
             <Label fx:id="Welcome" layoutX="92.0" layoutY="150.0" prefHeight="40.0" prefWidth="493.0" text="Welcome To News System.">
                <font>
@@ -16,10 +16,11 @@
                </font>
             </Label>
          </children></AnchorPane>
-      <ButtonBar layoutX="319.0" layoutY="619.0" prefHeight="40.0" prefWidth="137.0">
+      <ButtonBar layoutX="236.0" layoutY="614.0" prefHeight="40.0" prefWidth="137.0">
         <buttons>
             <Button fx:id="like" minWidth="22.0" mnemonicParsing="false" onMouseClicked="#onliking" prefHeight="25.0" text="Like" />
             <Button fx:id="next" mnemonicParsing="false" onMouseClicked="#nexting" text="Let's Start" />
+            <Button fx:id="back" minWidth="22.0" mnemonicParsing="false" onMouseClicked="#backing" prefHeight="25.0" text="Back" />
         </buttons>
       </ButtonBar>
    </children>
