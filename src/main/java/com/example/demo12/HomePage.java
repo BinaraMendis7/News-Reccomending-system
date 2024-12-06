@@ -76,6 +76,8 @@ public class HomePage{
         if (user != null && article != null) {
             user.like(article);
             Label likeLabel = new Label("You liked this article!");
+            likeLabel.setLayoutX(153);
+            likeLabel.setLayoutY(40);
             newsbody.getChildren().add(likeLabel);
         }else{
             Alert alert=new Alert(Alert.AlertType.ERROR);

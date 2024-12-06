@@ -66,6 +66,8 @@ public class RecomendingController{
             user.addLikedArticle(article);
             user.like(article);
             Label likeLabel = new Label("You liked this article!");
+            likeLabel.setLayoutX(153);
+            likeLabel.setLayoutY(40);
             anchorpane.getChildren().add(likeLabel);
         }
     }
